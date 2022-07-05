@@ -11,20 +11,19 @@ import net.minecraft.item.ItemStack;
  */
 public class ItemMagCard extends Item {
 
-	public ItemMagCard() {
-		super();
-		setUnlocalizedName("magCard");
-		setTextureName("opensecurity:magCard");
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int par2)
-	{
-		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
-			return stack.getTagCompound().getInteger("color");	
-		} else {
-			return 0xFFFFFF;
-		}
-	}
+    public ItemMagCard() {
+        super();
+        setUnlocalizedName("magCard");
+        setTextureName("opensecurity:magCard");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack stack, int par2) {
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
+            return stack.getTagCompound().getInteger("color");
+        } else {
+            return 0xFFFFFF;
+        }
+    }
 }

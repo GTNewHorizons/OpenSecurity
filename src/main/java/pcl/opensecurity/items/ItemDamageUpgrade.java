@@ -11,20 +11,19 @@ import net.minecraft.item.ItemStack;
  */
 public class ItemDamageUpgrade extends Item {
 
-	public ItemDamageUpgrade() {
-		super();
-		setUnlocalizedName("damageUpgrade");
-		setTextureName("opensecurity:damageUpgrade");
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int par2)
-	{
-		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
-			return stack.getTagCompound().getInteger("color");	
-		} else {
-			return 0xFFFFFF;
-		}
-	}
+    public ItemDamageUpgrade() {
+        super();
+        setUnlocalizedName("damageUpgrade");
+        setTextureName("opensecurity:damageUpgrade");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack stack, int par2) {
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
+            return stack.getTagCompound().getInteger("color");
+        } else {
+            return 0xFFFFFF;
+        }
+    }
 }

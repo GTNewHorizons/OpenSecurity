@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package pcl.opensecurity.containers;
 
@@ -14,14 +14,13 @@ import pcl.opensecurity.tileentity.TileEntityMagReader;
  */
 public class MagCardContainer extends Container {
 
-	public MagCardContainer(InventoryPlayer inventory, TileEntityMagReader icte) {
-		// TODO Auto-generated constructor stub
-	}
+    public MagCardContainer(InventoryPlayer inventory, TileEntityMagReader icte) {
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public boolean canInteractWith(EntityPlayer entityplayer) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
+    @Override
+    public boolean canInteractWith(EntityPlayer entityplayer) {
+        // TODO Auto-generated method stub
+        return false;
+    }
 }

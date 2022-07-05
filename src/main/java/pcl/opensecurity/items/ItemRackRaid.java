@@ -1,5 +1,3 @@
 package pcl.opensecurity.items;
 
-public class ItemRackRaid {
-
-}
+public class ItemRackRaid {}

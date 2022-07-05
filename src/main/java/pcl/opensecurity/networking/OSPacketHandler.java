@@ -1,21 +1,19 @@
 package pcl.opensecurity.networking;
-import pcl.opensecurity.tileentity.TileEntityKVM;
+
 import cpw.mods.fml.common.network.ByteBufUtils;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.tileentity.TileEntity;
-
-
+import pcl.opensecurity.tileentity.TileEntityKVM;
 
 public class OSPacketHandler implements IMessage {
     int x, y, z;
     int isEnabled = 0;
-	int side;
+    int side;
 
-    public OSPacketHandler() {
-    }
+    public OSPacketHandler() {}
 
     public OSPacketHandler(int i, int x, int y, int z, int isEnabled) {
         this.side = i;
@@ -43,20 +41,18 @@ public class OSPacketHandler implements IMessage {
         ByteBufUtils.writeVarInt(buf, isEnabled, 1);
     }
 
-
     public static class PacketHandler implements IMessageHandler<OSPacketHandler, IMessage> {
 
         @Override
         public IMessage onMessage(OSPacketHandler message, MessageContext ctx) {
-            TileEntity te = ctx.getServerHandler().playerEntity.getEntityWorld().getTileEntity(message.x, message.y, message.z);
+            TileEntity te =
+                    ctx.getServerHandler().playerEntity.getEntityWorld().getTileEntity(message.x, message.y, message.z);
             boolean isEnabled;
             int side = message.side;
-            if(message.isEnabled == 1)
-            	isEnabled = true;
-            else
-            	isEnabled = false;
-            if(te instanceof TileEntityKVM) {
-				((TileEntityKVM) te).setSide(side, isEnabled);
+            if (message.isEnabled == 1) isEnabled = true;
+            else isEnabled = false;
+            if (te instanceof TileEntityKVM) {
+                ((TileEntityKVM) te).setSide(side, isEnabled);
             }
             return null;
         }
