@@ -1,8 +1,8 @@
 package pcl.opensecurity.client.sounds;
 
-//Author: AfterLifeLochie
+// Author: AfterLifeLochie
 public interface ISoundTile {
-	public boolean playSoundNow();
+    public boolean playSoundNow();
 
-	public String getSoundName();
+    public String getSoundName();
 }

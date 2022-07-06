@@ -1,0 +1,4 @@
+dependencies {
+	compile 'com.github.GTNewHorizons:OpenComputers:1.7.5.27-GTNH:dev'
+	compile 'org.mindrot:jbcrypt:0.4'
+}

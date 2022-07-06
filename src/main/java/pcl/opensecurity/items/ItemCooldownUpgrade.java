@@ -11,20 +11,19 @@ import net.minecraft.item.ItemStack;
  */
 public class ItemCooldownUpgrade extends Item {
 
-	public ItemCooldownUpgrade() {
-		super();
-		setUnlocalizedName("cooldownUpgrade");
-		setTextureName("opensecurity:cooldownUpgrade");
-	}
-	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public int getColorFromItemStack(ItemStack stack, int par2)
-	{
-		if (stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
-			return stack.getTagCompound().getInteger("color");	
-		} else {
-			return 0xFFFFFF;
-		}
-	}
+    public ItemCooldownUpgrade() {
+        super();
+        setUnlocalizedName("cooldownUpgrade");
+        setTextureName("opensecurity:cooldownUpgrade");
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public int getColorFromItemStack(ItemStack stack, int par2) {
+        if (stack.hasTagCompound() && stack.getTagCompound().hasKey("color")) {
+            return stack.getTagCompound().getInteger("color");
+        } else {
+            return 0xFFFFFF;
+        }
+    }
 }
