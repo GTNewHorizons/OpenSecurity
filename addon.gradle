@@ -1,0 +1,5 @@
+task updateSecureOS(type: Exec) {
+	commandLine 'git', 'submodule', 'update', '--init'
+}
+
+processResources.dependsOn updateSecureOS
