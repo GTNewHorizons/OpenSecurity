@@ -14,6 +14,7 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+@IFMLLoadingPlugin.MCVersion("1.7.10")
 public class SoundUnpack implements IFMLLoadingPlugin, IFMLCallHook {
     public void load() throws IOException, URISyntaxException {
         File f = new File("mods" + File.separator + "OpenSecurity" + File.separator + "sounds" + File.separator
