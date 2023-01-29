@@ -2,10 +2,13 @@ package pcl.opensecurity.client.renderer;
 
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
 import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
 
 public class RenderItemEnergyTurret implements IItemRenderer {
+
     private RenderEnergyTurret render;
     private TileEntityEnergyTurret entity = new TileEntityEnergyTurret();
 
@@ -18,8 +21,8 @@ public class RenderItemEnergyTurret implements IItemRenderer {
         return true;
     }
 
-    public boolean shouldUseRenderHelper(
-            IItemRenderer.ItemRenderType type, ItemStack item, IItemRenderer.ItemRendererHelper helper) {
+    public boolean shouldUseRenderHelper(IItemRenderer.ItemRenderType type, ItemStack item,
+            IItemRenderer.ItemRendererHelper helper) {
         return true;
     }
 

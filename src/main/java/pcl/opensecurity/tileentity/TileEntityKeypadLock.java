@@ -1,7 +1,7 @@
 package pcl.opensecurity.tileentity;
 
-import cpw.mods.fml.common.network.NetworkRegistry;
 import java.util.Map;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -11,31 +11,33 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.networking.PacketKeypadButton;
+import cpw.mods.fml.common.network.NetworkRegistry;
 
 public class TileEntityKeypadLock extends TileEntityMachineBase implements Environment {
+
     static final int MAX_LABEL_LENGTH = 3;
     static final int MAX_DISPLAY_LENGTH = 8;
 
     private boolean shouldBeep = true;
     public String data;
     public String eventName = "keypad";
-    public String[] buttonLabels = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"};
-    public byte[] buttonColors = new byte[] {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7};
+    public String[] buttonLabels = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#" };
+    public byte[] buttonColors = new byte[] { 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7 };
     public String displayText = "";
     public byte displayColor = 7;
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     static String trimString(String str, int len) {
         if (str == null || str.length() <= len) return str;
@@ -121,18 +123,17 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
     @Callback(doc = "function(String:name):boolean; Sets the name of the event that gets sent when a key is pressed")
     public Object[] setEventName(Context context, Arguments args) throws Exception {
         eventName = args.checkString(0);
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback(doc = "function(Boolean):boolean; Sets if the keys should beep when pressed")
     public Object[] setShouldBeep(Context context, Arguments args) throws Exception {
         shouldBeep = args.checkBoolean(0);
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback(
-            doc =
-                    "function(String:text[, color:number]):boolean; Sets the display string (0-8 chars), color (0-7) - 1 bit per channel")
+            doc = "function(String:text[, color:number]):boolean; Sets the display string (0-8 chars), color (0-7) - 1 bit per channel")
     public Object[] setDisplay(Context context, Arguments args) throws Exception {
         String text = args.checkString(0);
 
@@ -142,7 +143,7 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
 
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         markDirty();
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback(doc = "function(idx:number, text:string, color:number):boolean; Sets the key text (1-2 chars)")
@@ -175,10 +176,11 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         markDirty();
 
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     public static class ButtonState {
+
         public static int pressDelay = 5;
         public long pressedTime;
 
@@ -199,12 +201,9 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
 
     public TileEntityKeypadLock() {
         super();
-        buttonStates = new ButtonState[] {
-            new ButtonState(), new ButtonState(), new ButtonState(),
-            new ButtonState(), new ButtonState(), new ButtonState(),
-            new ButtonState(), new ButtonState(), new ButtonState(),
-            new ButtonState(), new ButtonState(), new ButtonState(),
-        };
+        buttonStates = new ButtonState[] { new ButtonState(), new ButtonState(), new ButtonState(), new ButtonState(),
+                new ButtonState(), new ButtonState(), new ButtonState(), new ButtonState(), new ButtonState(),
+                new ButtonState(), new ButtonState(), new ButtonState(), };
     }
 
     public static String getBaseInstanceFileName() {
@@ -240,12 +239,21 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
             worldObj.playSoundEffect(xCoord + 0.5D, yCoord + 0.5D, zCoord + 0.5D, "opensecurity:keypad_press", 0.4F, 1);
         if (!worldObj.isRemote) {
             PacketKeypadButton packet = new PacketKeypadButton(
-                    (short) 1, worldObj.provider.dimensionId, xCoord, yCoord, zCoord, buttonIndex);
+                    (short) 1,
+                    worldObj.provider.dimensionId,
+                    xCoord,
+                    yCoord,
+                    zCoord,
+                    buttonIndex);
             EntityPlayerMP p = (EntityPlayerMP) player;
             OpenSecurity.network.sendToAllAround(
                     packet,
                     new NetworkRegistry.TargetPoint(
-                            p.dimension, (double) xCoord, (double) yCoord, (double) zCoord, 64d));
+                            p.dimension,
+                            (double) xCoord,
+                            (double) yCoord,
+                            (double) zCoord,
+                            64d));
             node.sendToReachable(
                     "computer.signal",
                     eventName,
@@ -254,7 +262,7 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
         }
     }
 
-    public static float[] facingToAngle = {0, 0, 0, 180, 90, 270};
+    public static float[] facingToAngle = { 0, 0, 0, 180, 90, 270 };
 
     public float getAngle() {
         return facingToAngle[getFacing()];

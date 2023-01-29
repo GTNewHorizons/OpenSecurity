@@ -1,8 +1,7 @@
 package pcl.opensecurity;
 
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 import java.io.File;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
+
 import pcl.opensecurity.client.renderer.RenderDisplayPanel;
 import pcl.opensecurity.client.renderer.RenderEnergyTurret;
 import pcl.opensecurity.client.renderer.RenderEntityEnergyBolt;
@@ -25,6 +25,8 @@ import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
 import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 import pcl.opensecurity.tileentity.TileEntityMagReader;
 import pcl.opensecurity.tileentity.TileEntityRFIDReader;
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
 
@@ -45,18 +47,20 @@ public class ClientProxy extends CommonProxy {
     public void registerRenderers() {
         TileEntitySpecialRenderer panelDisplayPanel = new RenderDisplayPanel();
         ClientRegistry.bindTileEntitySpecialRenderer(
-                pcl.opensecurity.tileentity.TileEntityDisplayPanel.class, panelDisplayPanel);
+                pcl.opensecurity.tileentity.TileEntityDisplayPanel.class,
+                panelDisplayPanel);
 
         RenderEnergyTurret turretRenderer = new RenderEnergyTurret();
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityEnergyTurret.class, turretRenderer);
         MinecraftForgeClient.registerItemRenderer(
-                Item.getItemFromBlock(ContentRegistry.energyTurretBlock), new RenderItemEnergyTurret(turretRenderer));
+                Item.getItemFromBlock(ContentRegistry.energyTurretBlock),
+                new RenderItemEnergyTurret(turretRenderer));
         RenderingRegistry.registerEntityRenderingHandler(EntityEnergyBolt.class, new RenderEntityEnergyBolt());
 
         RenderKeypad keypadRenderer = new RenderKeypad();
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityKeypadLock.class, keypadRenderer);
-        MinecraftForgeClient.registerItemRenderer(
-                new ItemStack(ContentRegistry.keypadLockBlock).getItem(), keypadRenderer);
+        MinecraftForgeClient
+                .registerItemRenderer(new ItemStack(ContentRegistry.keypadLockBlock).getItem(), keypadRenderer);
 
         OpenSecurity.logger.info("Registered TESRs");
     }

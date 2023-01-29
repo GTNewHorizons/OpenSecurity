@@ -1,7 +1,5 @@
 package pcl.opensecurity.util;
 
-import cpw.mods.fml.relauncher.IFMLCallHook;
-import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -14,20 +12,25 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import cpw.mods.fml.relauncher.IFMLCallHook;
+import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
+
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class SoundUnpack implements IFMLLoadingPlugin, IFMLCallHook {
+
     public void load() throws IOException, URISyntaxException {
-        File f = new File("mods" + File.separator + "OpenSecurity" + File.separator + "sounds" + File.separator
-                + "alarms" + File.separator);
+        File f = new File(
+                "mods" + File.separator
+                        + "OpenSecurity"
+                        + File.separator
+                        + "sounds"
+                        + File.separator
+                        + "alarms"
+                        + File.separator);
         f.mkdirs();
         final String path = "assets/opensecurity/sounds/alarms/";
         System.out.println("Extracting sounds from: " + path);
-        final File jarFile = new File(getClass()
-                .getProtectionDomain()
-                .getCodeSource()
-                .getLocation()
-                .toURI()
-                .getPath());
+        final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
         if (jarFile.isFile()) { // Run with JAR file
             JarFile jar = null;
             jar = new JarFile(jarFile);
@@ -39,7 +42,7 @@ public class SoundUnpack implements IFMLLoadingPlugin, IFMLCallHook {
                     Path p = Paths.get(name);
                     String file = p.getFileName().toString();
                     System.out.println("Extracting file: " + file);
-                    try (FileOutputStream fos = new FileOutputStream(f + File.separator + file); ) {
+                    try (FileOutputStream fos = new FileOutputStream(f + File.separator + file);) {
                         byte[] buf = new byte[2048];
                         int r;
                         while (-1 != (r = oggStream.read(buf))) {

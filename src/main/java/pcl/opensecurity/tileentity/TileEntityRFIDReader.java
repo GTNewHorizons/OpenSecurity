@@ -3,6 +3,7 @@ package pcl.opensecurity.tileentity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -13,6 +14,7 @@ import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
 import li.cil.oc.common.inventory.Inventory;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -20,6 +22,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.items.ItemRFIDCard;
 
@@ -33,10 +36,8 @@ public class TileEntityRFIDReader extends TileEntityMachineBase implements Envir
     public UUID uuid;
     // public int range = OpenSecurity.rfidRange;
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     @Override
     public Node node() {
@@ -111,7 +112,7 @@ public class TileEntityRFIDReader extends TileEntityMachineBase implements Envir
         return value;
     }
 
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public HashMap<Integer, HashMap<String, Object>> scan(int range) {
         boolean found = false;
         worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 1, 3);
@@ -139,8 +140,7 @@ public class TileEntityRFIDReader extends TileEntityMachineBase implements Envir
                     int size = playerInventory.length;
                     for (int k = 0; k < size; k++) {
                         ItemStack st = em.inventory.getStackInSlot(k);
-                        if (st != null
-                                && st.getItem() instanceof ItemRFIDCard
+                        if (st != null && st.getItem() instanceof ItemRFIDCard
                                 && st.stackTagCompound != null
                                 && st.stackTagCompound.hasKey("data")) {
                             String localUUID;
@@ -165,8 +165,7 @@ public class TileEntityRFIDReader extends TileEntityMachineBase implements Envir
                     int size = em.inventorySize();
                     for (int k = 0; k < size; k++) {
                         ItemStack st = droneInventory.getStackInSlot(k);
-                        if (st != null
-                                && st.getItem() instanceof ItemRFIDCard
+                        if (st != null && st.getItem() instanceof ItemRFIDCard
                                 && st.stackTagCompound != null
                                 && st.stackTagCompound.hasKey("data")) {
                             String localUUID;
@@ -218,12 +217,11 @@ public class TileEntityRFIDReader extends TileEntityMachineBase implements Envir
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback(
-            doc =
-                    "function(optional:int:range):string; pushes a signal \"rfidData\" for each found rfid on all players in range, optional set range.")
+            doc = "function(optional:int:range):string; pushes a signal \"rfidData\" for each found rfid on all players in range, optional set range.")
     public Object[] scan(Context context, Arguments args) {
         int range = args.optInteger(0, OpenSecurity.rfidRange);
         if (range > OpenSecurity.rfidRange) {
@@ -232,11 +230,11 @@ public class TileEntityRFIDReader extends TileEntityMachineBase implements Envir
         range = range / 2;
 
         if (node.changeBuffer(-5 * range) == 0) {
-            // worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D,  this.zCoord + 0.5D,
+            // worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D,
             // "opensecurity:scanner2", 1.0F, worldObj.rand.nextFloat() * 0.1F + 0.9F);
-            return new Object[] {scan(range)};
+            return new Object[] { scan(range) };
         } else {
-            return new Object[] {false, "Not enough power in OC Network."};
+            return new Object[] { false, "Not enough power in OC Network." };
         }
     }
 }

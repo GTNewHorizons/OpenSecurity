@@ -1,16 +1,19 @@
 package pcl.opensecurity.entity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.List;
+
 import net.minecraft.entity.DataWatcher;
 import net.minecraft.entity.Entity;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.blocks.BlockEnergyTurret;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityEnergyBolt extends Entity {
+
     private int life = 600;
     private float yaw = 0.0F;
     private float pitch = 0.0F;
@@ -78,11 +81,12 @@ public class EntityEnergyBolt extends Entity {
         this.yaw = d.getWatchableObjectFloat(19);
         this.pitch = d.getWatchableObjectFloat(20);
         this.damage = d.getWatchableObjectFloat(21);
-        if ((!this.worldObj.isAirBlock(
-                        (int) Math.floor(this.posX), (int) Math.floor(this.posY), (int) Math.floor(this.posZ)))
+        if ((!this.worldObj
+                .isAirBlock((int) Math.floor(this.posX), (int) Math.floor(this.posY), (int) Math.floor(this.posZ)))
                 && (!(this.worldObj.getBlock(
-                                (int) Math.floor(this.posX), (int) Math.floor(this.posY), (int) Math.floor(this.posZ))
-                        instanceof BlockEnergyTurret))) {
+                        (int) Math.floor(this.posX),
+                        (int) Math.floor(this.posY),
+                        (int) Math.floor(this.posZ)) instanceof BlockEnergyTurret))) {
             this.isDead = true;
         }
         List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);

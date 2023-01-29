@@ -7,7 +7,9 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
+
 import org.lwjgl.opengl.GL11;
+
 import pcl.opensecurity.tileentity.TileEntityDisplayPanel;
 
 /**
@@ -15,6 +17,7 @@ import pcl.opensecurity.tileentity.TileEntityDisplayPanel;
  *
  */
 public class RenderDisplayPanel extends TileEntitySpecialRenderer {
+
     private static final float X_OFFSET = 0.5F;
     private static final float Y_OFFSET = 1F - 0.125F;
     private static final float Z_OFFSET = 0.01F;
@@ -26,8 +29,7 @@ public class RenderDisplayPanel extends TileEntitySpecialRenderer {
         f *= Minecraft.getMinecraft().isGamePaused() ? 0.0f : 1.0f;
         TileEntityDisplayPanel panel = (TileEntityDisplayPanel) tileEntity;
 
-        float light = tileEntity
-                .getWorldObj()
+        float light = tileEntity.getWorldObj()
                 .getLightBrightnessForSkyBlocks(tileEntity.xCoord, tileEntity.yCoord, tileEntity.zCoord, 15);
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, light, light);
 

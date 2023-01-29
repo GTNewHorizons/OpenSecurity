@@ -1,13 +1,14 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.tileentity.TileEntityBiometricReader;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Caitlyn
@@ -38,8 +39,7 @@ public class BlockBiometricReader extends BlockOSBase {
     }
 
     /**
-     * From the specified side and block metadata retrieves the blocks texture.
-     * Args: side, metadata
+     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -53,16 +53,8 @@ public class BlockBiometricReader extends BlockOSBase {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int xCoord,
-            int yCoord,
-            int zCoord,
-            EntityPlayer entityplayer,
-            int side,
-            float clickedX,
-            float clickedY,
-            float clickedZ) {
+    public boolean onBlockActivated(World world, int xCoord, int yCoord, int zCoord, EntityPlayer entityplayer,
+            int side, float clickedX, float clickedY, float clickedZ) {
         TileEntityBiometricReader tile = (TileEntityBiometricReader) world.getTileEntity(xCoord, yCoord, zCoord);
         if (!world.isRemote && side == world.getBlockMetadata(xCoord, yCoord, zCoord)) {
             tile.doRead(entityplayer, side);

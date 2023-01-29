@@ -1,19 +1,23 @@
 package pcl.opensecurity.tileentity;
 
 import java.io.File;
+
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
 import li.cil.oc.api.machine.Context;
 import li.cil.oc.api.network.SimpleComponent;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.ResourceLocation;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.client.sounds.ISoundTile;
 
 public class TileEntityAlarm extends TileEntityMachineBase implements SimpleComponent, ISoundTile {
+
     public static String cName = "OSAlarm";
     public Boolean shouldPlay = false;
     public String soundName = "klaxon1";
@@ -72,7 +76,7 @@ public class TileEntityAlarm extends TileEntityMachineBase implements SimpleComp
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback(doc = "function(range:integer):string; Sets the range in blocks of the alarm", direct = true)
@@ -80,25 +84,33 @@ public class TileEntityAlarm extends TileEntityMachineBase implements SimpleComp
         Float newVolume = (float) args.checkInteger(0);
         if (newVolume >= 15 && newVolume <= 150) {
             volume = newVolume / 15 + 0.5F;
-            return new Object[] {"Success"};
+            return new Object[] { "Success" };
         } else {
-            return new Object[] {"Error, range should be between 15-150"};
+            return new Object[] { "Error, range should be between 15-150" };
         }
     }
 
     @Callback(doc = "function(soundName:string):string; Sets the alarm sound", direct = true)
     public Object[] setAlarm(Context context, Arguments args) {
         String alarm = args.checkString(0);
-        File f = new File("mods" + File.separator + "OpenSecurity" + File.separator + "sounds" + File.separator
-                + "alarms" + File.separator + alarm + ".ogg");
+        File f = new File(
+                "mods" + File.separator
+                        + "OpenSecurity"
+                        + File.separator
+                        + "sounds"
+                        + File.separator
+                        + "alarms"
+                        + File.separator
+                        + alarm
+                        + ".ogg");
         if (f.exists() && !f.isDirectory()) {
             soundName = alarm;
             setSound(alarm);
             worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
             getDescriptionPacket();
-            return new Object[] {"Success"};
+            return new Object[] { "Success" };
         } else {
-            return new Object[] {"Fail"};
+            return new Object[] { "Fail" };
         }
     }
 
@@ -106,17 +118,16 @@ public class TileEntityAlarm extends TileEntityMachineBase implements SimpleComp
     public Object[] activate(Context context, Arguments args) {
         this.setShouldStart(true);
         computerPlaying = true;
-        return new Object[] {"Ok"};
+        return new Object[] { "Ok" };
     }
 
     @Callback(doc = "function():table; Returns a table of Alarm Sounds", direct = true)
     public Object[] listSounds(Context context, Arguments args) {
-        return new Object[] {OpenSecurity.alarmList};
+        return new Object[] { OpenSecurity.alarmList };
     }
 
     @Callback(
-            doc =
-                    "function(int:x, int:y, int:z, string:sound, float:range(1-10 recommended)):string; Plays sound at x y z",
+            doc = "function(int:x, int:y, int:z, string:sound, float:range(1-10 recommended)):string; Plays sound at x y z",
             direct = true)
     public Object[] playSoundAt(Context context, Arguments args) {
         if (OpenSecurity.enableplaySoundAt) {
@@ -126,9 +137,9 @@ public class TileEntityAlarm extends TileEntityMachineBase implements SimpleComp
             String sound = args.checkString(3);
             float range = args.checkInteger(4);
             worldObj.playSoundEffect(x, y, z, sound, range / 15 + 0.5F, 1.0F);
-            return new Object[] {"Ok"};
+            return new Object[] { "Ok" };
         } else {
-            return new Object[] {"Disabled"};
+            return new Object[] { "Disabled" };
         }
     }
 
@@ -136,7 +147,7 @@ public class TileEntityAlarm extends TileEntityMachineBase implements SimpleComp
     public Object[] deactivate(Context context, Arguments args) {
         this.setShouldStop(true);
         computerPlaying = false;
-        return new Object[] {"Ok"};
+        return new Object[] { "Ok" };
     }
 
     @Override

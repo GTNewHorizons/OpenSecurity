@@ -1,7 +1,5 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,8 +10,11 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.tileentity.TileEntityKVM;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockKVM extends BlockOSBase {
 
@@ -42,8 +43,8 @@ public class BlockKVM extends BlockOSBase {
      * Called when the block is placed in the world.
      */
     @Override
-    public void onBlockPlacedBy(
-            World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+    public void onBlockPlacedBy(World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase,
+            ItemStack par6ItemStack) {
         super.onBlockPlacedBy(par1World, x, y, z, par5EntityLivingBase, par6ItemStack);
         int whichDirectionFacing = 0;
         whichDirectionFacing = MathHelper.floor_double(par5EntityLivingBase.rotationYaw * 4.0F / 360.0F + 0.5D) & 3;
@@ -67,23 +68,14 @@ public class BlockKVM extends BlockOSBase {
                 x,
                 y,
                 z,
-                par5EntityLivingBase.isSneaking()
-                        ? whichDirectionFacing
+                par5EntityLivingBase.isSneaking() ? whichDirectionFacing
                         : ForgeDirection.OPPOSITES[whichDirectionFacing],
                 2);
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int metadata,
-            float clickX,
-            float clickY,
-            float clickZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float clickX,
+            float clickY, float clickZ) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity == null || player.isSneaking()) {
             return false;
@@ -111,8 +103,7 @@ public class BlockKVM extends BlockOSBase {
     }
 
     /**
-     * From the specified side and block metadata retrieves the blocks texture.
-     * Args: side, metadata
+     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
     @Override
     @SideOnly(Side.CLIENT)

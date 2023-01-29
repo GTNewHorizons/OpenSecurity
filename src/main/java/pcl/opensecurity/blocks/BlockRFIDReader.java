@@ -1,15 +1,17 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.tileentity.TileEntityRFIDReader;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Caitlyn
@@ -59,8 +61,8 @@ public class BlockRFIDReader extends BlockOSBase {
 
     // No rotation stuff...
     @Override
-    public void onBlockPlacedBy(
-            World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {}
+    public void onBlockPlacedBy(World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase,
+            ItemStack par6ItemStack) {}
 
     @Override
     public TileEntity createNewTileEntity(World var1, int var2) {

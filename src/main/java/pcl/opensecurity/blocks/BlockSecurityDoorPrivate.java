@@ -1,8 +1,7 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.client.renderer.IconFlipped;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,9 +11,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.tileentity.TileEntitySecureDoor;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSecurityDoorPrivate extends BlockSecurityDoor {
 
@@ -50,8 +52,7 @@ public class BlockSecurityDoorPrivate extends BlockSecurityDoor {
     public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
         TileEntitySecureDoor tileEntity = (TileEntitySecureDoor) world.getTileEntity(x, y, z);
         // If the user is not the owner, or the user is not in creative drop out.
-        if ((tileEntity.getOwner() != null
-                        && tileEntity.getOwner().equals(player.getUniqueID().toString()))
+        if ((tileEntity.getOwner() != null && tileEntity.getOwner().equals(player.getUniqueID().toString()))
                 || player.capabilities.isCreativeMode) {
             this.setResistance(4F);
             this.setHardness(6F);

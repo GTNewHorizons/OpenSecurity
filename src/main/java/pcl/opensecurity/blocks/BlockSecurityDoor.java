@@ -1,8 +1,7 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
@@ -16,11 +15,15 @@ import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.tileentity.TileEntitySecureDoor;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSecurityDoor extends BlockDoor {
+
     public Item placerItem;
 
     @SideOnly(Side.CLIENT)
@@ -88,16 +91,8 @@ public class BlockSecurityDoor extends BlockDoor {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int par2,
-            int par3,
-            int par4,
-            EntityPlayer player,
-            int par6,
-            float par7,
-            float par8,
-            float par9) {
+    public boolean onBlockActivated(World world, int par2, int par3, int par4, EntityPlayer player, int par6,
+            float par7, float par8, float par9) {
         return false;
     }
 
@@ -115,8 +110,7 @@ public class BlockSecurityDoor extends BlockDoor {
     public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
         TileEntitySecureDoor tileEntity = (TileEntitySecureDoor) world.getTileEntity(x, y, z);
         // If the user is not the owner, or the user is not in creative drop out.
-        if ((tileEntity.getOwner() != null
-                        && tileEntity.getOwner().equals(player.getUniqueID().toString()))
+        if ((tileEntity.getOwner() != null && tileEntity.getOwner().equals(player.getUniqueID().toString()))
                 || player.capabilities.isCreativeMode) {
             this.setResistance(4F);
             this.setHardness(6F);
@@ -137,15 +131,15 @@ public class BlockSecurityDoor extends BlockDoor {
                 world.setBlockToAir(x, y, z);
             }
 
-            //			if (!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z))
-            //			{
-            //				world.setBlockToAir(x, y, z);
+            // if (!World.doesBlockHaveSolidTopSurface(world, x, y - 1, z))
+            // {
+            // world.setBlockToAir(x, y, z);
             //
-            //				if (world.getBlock(x, y + 1, z) == this)
-            //				{
-            //					world.setBlockToAir(x, y + 1, z);
-            //				}
-            //			}
+            // if (world.getBlock(x, y + 1, z) == this)
+            // {
+            // world.setBlockToAir(x, y + 1, z);
+            // }
+            // }
         } else // Bottom door block
         {
             if (world.getBlock(x, y - 1, z) != this) {

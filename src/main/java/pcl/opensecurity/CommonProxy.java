@@ -3,13 +3,14 @@
  */
 package pcl.opensecurity;
 
-import cpw.mods.fml.common.network.IGuiHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.containers.CardWriterContainer;
 import pcl.opensecurity.tileentity.TileEntityCardWriter;
 import pcl.opensecurity.tileentity.TileEntityRFIDReader;
+import cpw.mods.fml.common.network.IGuiHandler;
 
 /**
  * @author Caitlyn

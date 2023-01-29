@@ -3,9 +3,8 @@
  */
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,8 +13,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.items.ItemMagCard;
 import pcl.opensecurity.tileentity.TileEntityMagReader;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 /**
  * @author Caitlyn
@@ -80,8 +82,8 @@ public class BlockMagReader extends BlockOSBase {
 
     // No rotation stuff...
     @Override
-    public void onBlockPlacedBy(
-            World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {}
+    public void onBlockPlacedBy(World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase,
+            ItemStack par6ItemStack) {}
 
     @Override
     public void updateTick(World world, int xCoord, int yCoord, int zCoord, Random rand) {
@@ -89,18 +91,9 @@ public class BlockMagReader extends BlockOSBase {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int xCoord,
-            int yCoord,
-            int zCoord,
-            EntityPlayer entityplayer,
-            int side,
-            float clickedX,
-            float clickedY,
-            float clickedZ) {
-        Item equipped = entityplayer.getCurrentEquippedItem() != null
-                ? entityplayer.getCurrentEquippedItem().getItem()
+    public boolean onBlockActivated(World world, int xCoord, int yCoord, int zCoord, EntityPlayer entityplayer,
+            int side, float clickedX, float clickedY, float clickedZ) {
+        Item equipped = entityplayer.getCurrentEquippedItem() != null ? entityplayer.getCurrentEquippedItem().getItem()
                 : null;
         TileEntityMagReader tile = (TileEntityMagReader) world.getTileEntity(xCoord, yCoord, zCoord);
         if (!world.isRemote && equipped instanceof ItemMagCard) {

@@ -3,9 +3,9 @@
  */
 package pcl.opensecurity.tileentity;
 
-import com.google.common.hash.Hashing;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterOutputStream;
+
 import li.cil.oc.Settings;
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
@@ -17,11 +17,16 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.nbt.NBTTagCompound;
+
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.mindrot.jbcrypt.BCrypt;
+
 import pcl.opensecurity.OpenSecurity;
+
+import com.google.common.hash.Hashing;
 
 /**
  * @author Caitlyn
@@ -29,10 +34,8 @@ import pcl.opensecurity.OpenSecurity;
  */
 public class TileEntityDataBlock extends TileEntityMachineBase implements Environment {
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     public TileEntityDataBlock() {
         if (this.node() != null) {
@@ -125,28 +128,24 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback(
             direct = true,
             doc = "function():number -- The maximum size of data that can be passed to other functions of the card.")
     public Object[] getLimit(Context context, Arguments args) {
-        return new Object[] {Settings.get().dataCardHardLimit()};
+        return new Object[] { Settings.get().dataCardHardLimit() };
     }
 
     @Callback(direct = true, limit = 32, doc = "function(data:string):string -- Applies base64 encoding to the data.")
     public Object[] encode64(Context context, Arguments args) throws Exception {
-        return new Object[] {
-            Base64.encodeBase64(checkLimits(context, args, Settings.get().dataCardComplex()))
-        };
+        return new Object[] { Base64.encodeBase64(checkLimits(context, args, Settings.get().dataCardComplex())) };
     }
 
     @Callback(direct = true, limit = 32, doc = "function(data:string):string -- Applies base64 decoding to the data.")
     public Object[] decode64(Context context, Arguments args) throws Exception {
-        return new Object[] {
-            Base64.decodeBase64(checkLimits(context, args, Settings.get().dataCardComplex()))
-        };
+        return new Object[] { Base64.decodeBase64(checkLimits(context, args, Settings.get().dataCardComplex())) };
     }
 
     @Callback(
@@ -160,7 +159,7 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
         deos.write(data);
         deos.finish();
         deos.close();
-        return new Object[] {baos.toByteArray()};
+        return new Object[] { baos.toByteArray() };
     }
 
     @Callback(
@@ -174,7 +173,7 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
         inos.write(data);
         inos.finish();
         inos.close();
-        return new Object[] {baos.toByteArray()};
+        return new Object[] { baos.toByteArray() };
     }
 
     @Callback(
@@ -183,17 +182,16 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
             doc = "function(data:string):string -- Computes SHA2-256 hash of the data. Result is in binary format.")
     public Object[] sha256(Context context, Arguments args) throws Exception {
         byte[] data = checkLimits(context, args, Settings.get().dataCardSimple());
-        return new Object[] {Hashing.sha256().hashBytes(data).asBytes()};
+        return new Object[] { Hashing.sha256().hashBytes(data).asBytes() };
     }
 
     @Callback(
             direct = true,
             limit = 32,
-            doc =
-                    "function(data:string):string -- function(data:string):string -- Computes MD5 hash of the data. Result is in binary format")
+            doc = "function(data:string):string -- function(data:string):string -- Computes MD5 hash of the data. Result is in binary format")
     public Object[] md5(Context context, Arguments args) throws Exception {
         byte[] data = checkLimits(context, args, Settings.get().dataCardSimple());
-        return new Object[] {Hashing.md5().hashBytes(data).asBytes()};
+        return new Object[] { Hashing.md5().hashBytes(data).asBytes() };
     }
 
     @Callback(
@@ -202,19 +200,18 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
             doc = "function(data:string):string -- Computes CRC-32 hash of the data. Result is in binary format")
     public Object[] crc32(Context context, Arguments args) throws Exception {
         byte[] data = checkLimits(context, args, Settings.get().dataCardSimple());
-        return new Object[] {Hashing.crc32().hashBytes(data).asBytes()};
+        return new Object[] { Hashing.crc32().hashBytes(data).asBytes() };
     }
 
     @Callback(direct = true, limit = 32, doc = "function(data:string):string -- Applies rot13 to the data. ")
     public Object[] rot13(Context context, Arguments args) throws Exception {
-        return new Object[] {rot13(args.checkString(0))};
+        return new Object[] { rot13(args.checkString(0)) };
     }
 
     @Callback(
             direct = true,
             limit = 32,
-            doc =
-                    "function(plain-text:string, optional rounds:int):string -- Computes the bCryptHash of the input plaintext, optionally supply rounds (4-15)")
+            doc = "function(plain-text:string, optional rounds:int):string -- Computes the bCryptHash of the input plaintext, optionally supply rounds (4-15)")
     public Object[] bCryptHash(Context context, Arguments args) throws Exception {
         int rounds = (int) args.optDouble(1, 10);
         if (rounds < 4) {
@@ -223,7 +220,7 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
             rounds = 15;
         }
         String hashed = BCrypt.hashpw(args.checkString(0), BCrypt.gensalt(rounds));
-        return new Object[] {hashed};
+        return new Object[] { hashed };
     }
 
     @Callback(
@@ -231,7 +228,7 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
             limit = 32,
             doc = "function(plain-text:string, hash:string):boolean -- Checks bCrypt input vs hash supplied")
     public Object[] bCryptCheck(Context context, Arguments args) throws Exception {
-        return new Object[] {BCrypt.checkpw(args.checkString(0), args.checkString(1))};
+        return new Object[] { BCrypt.checkpw(args.checkString(0), args.checkString(1)) };
     }
 
     private byte[] checkLimits(Context context, Arguments args, Double cost) throws Exception {
@@ -239,8 +236,7 @@ public class TileEntityDataBlock extends TileEntityMachineBase implements Enviro
         if (data.length > Settings.get().dataCardHardLimit())
             throw new IllegalArgumentException("data size limit exceeded");
         if (!node.tryChangeBuffer(-cost)) throw new Exception("not enough energy");
-        if (data.length > Settings.get().dataCardSoftLimit())
-            context.pause(Settings.get().dataCardTimeout());
+        if (data.length > Settings.get().dataCardSoftLimit()) context.pause(Settings.get().dataCardTimeout());
         return data;
     }
 

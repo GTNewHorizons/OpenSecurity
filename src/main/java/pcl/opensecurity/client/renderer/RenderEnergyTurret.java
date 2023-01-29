@@ -4,11 +4,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import pcl.opensecurity.client.model.ModelEnergyTurret;
 import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
 
 public class RenderEnergyTurret extends TileEntitySpecialRenderer {
+
     private final ModelEnergyTurret model;
     ResourceLocation textures;
 

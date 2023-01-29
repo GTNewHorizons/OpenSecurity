@@ -5,6 +5,7 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
@@ -25,10 +26,9 @@ public class TileEntitySecureDoor extends TileEntity implements Environment {
     public void setPassword(String pass) {
         this.password = pass;
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            TileEntity te = worldObj.getTileEntity(
-                    xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-            if (te instanceof TileEntitySecureDoor
-                    && !te.equals(this)
+            TileEntity te = worldObj
+                    .getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            if (te instanceof TileEntitySecureDoor && !te.equals(this)
                     && ((TileEntitySecureDoor) te).getOwner().equals(this.ownerUUID)) {
                 ((TileEntitySecureDoor) te).setSlavePassword(this.password);
             }

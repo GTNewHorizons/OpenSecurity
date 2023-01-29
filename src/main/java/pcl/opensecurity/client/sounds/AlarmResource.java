@@ -1,20 +1,23 @@
 package pcl.opensecurity.client.sounds;
 
-import com.google.common.collect.Sets;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import cpw.mods.fml.common.ObfuscationReflectionHelper;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.*;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.client.resources.data.IMetadataSection;
 import net.minecraft.client.resources.data.IMetadataSerializer;
 import net.minecraft.util.ResourceLocation;
 
+import com.google.common.collect.Sets;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
+import cpw.mods.fml.common.ObfuscationReflectionHelper;
+
 public class AlarmResource implements IResourcePack {
+
     public static final String PACK_NAME = "opensecurity_external";
     public static Map<String, String> sound_map = new HashMap<String, String>();
     private static File mc_dir = Minecraft.getMinecraft().mcDataDir;
@@ -25,10 +28,8 @@ public class AlarmResource implements IResourcePack {
     }
 
     public boolean resourceExists(ResourceLocation l) {
-        return isResourceFromThisPack(l)
-                && (l.getResourcePath().equals("sounds.json")
-                        || getRealPathBecauseMojangLiterallyCantEvenCodeOutsideTheirUsageScenario(l)
-                                .exists());
+        return isResourceFromThisPack(l) && (l.getResourcePath().equals("sounds.json")
+                || getRealPathBecauseMojangLiterallyCantEvenCodeOutsideTheirUsageScenario(l).exists());
     }
 
     public Set<String> getResourceDomains() {
@@ -68,15 +69,21 @@ public class AlarmResource implements IResourcePack {
             JsonObject sound = new JsonObject(); // sound object (instead of primitive to use 'stream' flag)
             sound.addProperty(
                     "name",
-                    File.separator + "mods" + File.separator + "OpenSecurity" + File.separator + "sounds"
-                            + File.separator + "alarms" + File.separator
+                    File.separator + "mods"
+                            + File.separator
+                            + "OpenSecurity"
+                            + File.separator
+                            + "sounds"
+                            + File.separator
+                            + "alarms"
+                            + File.separator
                             + entry.getValue().substring(0, entry.getValue().lastIndexOf('.'))); // path to file
             sound.addProperty("stream", false); // streaming seems to break the alarm... why?
             sounds.add(sound);
             event.add("sounds", sounds);
-            root.add(
-                    entry.getValue().substring(0, entry.getValue().lastIndexOf('.')),
-                    event); // event name (same as name sent to ItemCustomRecord)
+            root.add(entry.getValue().substring(0, entry.getValue().lastIndexOf('.')), event); // event name (same as
+                                                                                               // name sent to
+                                                                                               // ItemCustomRecord)
         }
         System.out.println(new Gson().toJson(root));
         return new ByteArrayInputStream(new Gson().toJson(root).getBytes());
@@ -92,8 +99,8 @@ public class AlarmResource implements IResourcePack {
         // values.add(this);
         // ReflectionHelper.setPrivateValue(Minecraft.class, Minecraft.getMinecraft(), values, "defaultResourcePacks",
         // "field_110449_ao");
-        List<IResourcePack> defaultResourcePacks = ObfuscationReflectionHelper.getPrivateValue(
-                Minecraft.class, Minecraft.getMinecraft(), "defaultResourcePacks", "field_110449_ao");
+        List<IResourcePack> defaultResourcePacks = ObfuscationReflectionHelper
+                .getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), "defaultResourcePacks", "field_110449_ao");
         defaultResourcePacks.add(this);
     }
 }

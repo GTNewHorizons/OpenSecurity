@@ -7,10 +7,12 @@ import net.minecraft.item.ItemDoor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.tileentity.TileEntitySecureDoor;
 
 public class ItemSecurityDoorPrivate extends ItemDoor {
+
     public Block doorBlock;
 
     public ItemSecurityDoorPrivate(Block block) {
@@ -26,17 +28,8 @@ public class ItemSecurityDoorPrivate extends ItemDoor {
      * Callback for item usage. If the item does something special on right clicking, he will have one of those. Return
      * True if something happen and false if it don't. This is for ITEMS, not BLOCKS
      */
-    public boolean onItemUse(
-            ItemStack par1ItemStack,
-            EntityPlayer par2EntityPlayer,
-            World par3World,
-            int par4,
-            int par5,
-            int par6,
-            int par7,
-            float par8,
-            float par9,
-            float par10) {
+    public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4,
+            int par5, int par6, int par7, float par8, float par9, float par10) {
         if (par7 != 1) {
             return false;
         } else {
@@ -51,8 +44,7 @@ public class ItemSecurityDoorPrivate extends ItemDoor {
                     return false;
                 } else {
                     int i1 = MathHelper.floor_double(
-                                    (double) ((par2EntityPlayer.rotationYaw + 180.0F) * 4.0F / 360.0F) - 0.5D)
-                            & 3;
+                            (double) ((par2EntityPlayer.rotationYaw + 180.0F) * 4.0F / 360.0F) - 0.5D) & 3;
                     placeDoorBlock(par3World, par4, par5, par6, i1, block, par2EntityPlayer);
                     --par1ItemStack.stackSize;
                     return true;
@@ -63,8 +55,8 @@ public class ItemSecurityDoorPrivate extends ItemDoor {
         }
     }
 
-    public static void placeDoorBlock(
-            World world, int x, int y, int z, int direction, Block block, EntityPlayer entityPlayer) {
+    public static void placeDoorBlock(World world, int x, int y, int z, int direction, Block block,
+            EntityPlayer entityPlayer) {
         byte b0 = 0;
         byte b1 = 0;
 

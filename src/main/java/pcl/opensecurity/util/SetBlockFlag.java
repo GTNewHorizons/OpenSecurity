@@ -9,8 +9,9 @@ public final class SetBlockFlag {
     /** When set on client, will not render the chunk again. */
     public static final int DONT_RERENDER = 0x4;
 
-    /** The default setting, will cause a block
-     *  update and send the change to the client. */
+    /**
+     * The default setting, will cause a block update and send the change to the client.
+     */
     public static final int DEFAULT = BLOCK_UPDATE | SEND_TO_CLIENT;
 
     private SetBlockFlag() {}

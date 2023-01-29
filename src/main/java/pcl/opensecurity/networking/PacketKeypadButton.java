@@ -4,6 +4,7 @@ import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import io.netty.buffer.ByteBuf;
 
 public class PacketKeypadButton implements IMessage {
+
     int button;
     short id;
     short instance;

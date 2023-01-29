@@ -6,7 +6,9 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.StatCollector;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import org.lwjgl.opengl.GL11;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.containers.KVMContainer;
 import pcl.opensecurity.networking.OSPacketHandler;

@@ -1,13 +1,14 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.tileentity.TileEntitySwitchableHub;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSwitchableHub extends BlockOSBase {
 
@@ -55,8 +56,7 @@ public class BlockSwitchableHub extends BlockOSBase {
     }
 
     /**
-     * From the specified side and block metadata retrieves the blocks texture.
-     * Args: side, metadata
+     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
     @Override
     @SideOnly(Side.CLIENT)

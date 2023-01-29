@@ -9,9 +9,12 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+
 import org.apache.commons.codec.binary.Base64;
+
 import pcl.opensecurity.OpenSecurity;
 
 public class TileEntityBiometricReader extends TileEntityMachineBase implements Environment {
@@ -19,10 +22,8 @@ public class TileEntityBiometricReader extends TileEntityMachineBase implements 
     public String data;
     public String eventName = "bioReader";
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     @Override
     public Node node() {
@@ -87,26 +88,29 @@ public class TileEntityBiometricReader extends TileEntityMachineBase implements 
 
     public void doRead(EntityPlayer entityplayer, int side) {
         if (!OpenSecurity.returnRealUUID) {
-            byte[] bytesEncoded =
-                    Base64.encodeBase64(entityplayer.getUniqueID().toString().getBytes());
+            byte[] bytesEncoded = Base64.encodeBase64(entityplayer.getUniqueID().toString().getBytes());
             node.sendToReachable("computer.signal", eventName, new String(bytesEncoded));
         } else {
-            node.sendToReachable(
-                    "computer.signal", eventName, entityplayer.getUniqueID().toString());
+            node.sendToReachable("computer.signal", eventName, entityplayer.getUniqueID().toString());
         }
         worldObj.playSoundEffect(
-                this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D, "opensecurity:scanner3", 0.4F, 1);
+                this.xCoord + 0.5D,
+                this.yCoord + 0.5D,
+                this.zCoord + 0.5D,
+                "opensecurity:scanner3",
+                0.4F,
+                1);
     }
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback(doc = "function(String:name):boolean; Sets the name of the event that gets sent", direct = true)
     public Object[] setEventName(Context context, Arguments args) throws Exception {
         eventName = args.checkString(0);
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Override

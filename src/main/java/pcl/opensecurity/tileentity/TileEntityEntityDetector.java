@@ -3,6 +3,7 @@ package pcl.opensecurity.tileentity;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -12,12 +13,14 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
+
 import pcl.opensecurity.OpenSecurity;
 
 /**
@@ -29,10 +32,8 @@ public class TileEntityEntityDetector extends TileEntityMachineBase implements E
     public int range = OpenSecurity.rfidRange;
     public boolean offset = false;
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     @Override
     public Node node() {
@@ -102,7 +103,13 @@ public class TileEntityEntityDetector extends TileEntityMachineBase implements E
         value.put("range", rangeToEntity);
         if (!offset) {
             node.sendToReachable(
-                    "computer.signal", "entityDetect", name, rangeToEntity, entity.posX, entity.posY, entity.posZ);
+                    "computer.signal",
+                    "entityDetect",
+                    name,
+                    rangeToEntity,
+                    entity.posX,
+                    entity.posY,
+                    entity.posZ);
             value.put("x", entity.posX);
             value.put("y", entity.posY);
             value.put("z", entity.posZ);
@@ -123,7 +130,7 @@ public class TileEntityEntityDetector extends TileEntityMachineBase implements E
         return value;
     }
 
-    @SuppressWarnings({"rawtypes"})
+    @SuppressWarnings({ "rawtypes" })
     public Map<Integer, HashMap<String, Object>> scan(boolean players, boolean offset) {
         worldObj.setBlockMetadataWithNotify(this.xCoord, this.yCoord, this.zCoord, 1, 3);
         Block block = worldObj.getBlock(this.xCoord, this.yCoord, this.zCoord);
@@ -167,17 +174,16 @@ public class TileEntityEntityDetector extends TileEntityMachineBase implements E
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback
     public Object[] getLoc(Context context, Arguments args) {
-        return new Object[] {this.xCoord, this.yCoord, this.zCoord};
+        return new Object[] { this.xCoord, this.yCoord, this.zCoord };
     }
 
     @Callback(
-            doc =
-                    "function(optional:int:range):table; pushes a signal \"entityDetect\" for each player in range, optional set range.",
+            doc = "function(optional:int:range):table; pushes a signal \"entityDetect\" for each player in range, optional set range.",
             direct = true)
     public Object[] scanPlayers(Context context, Arguments args) {
         range = args.optInteger(0, range);
@@ -187,17 +193,16 @@ public class TileEntityEntityDetector extends TileEntityMachineBase implements E
         }
         range = range / 2;
         if (node.changeBuffer(-5 * range) == 0) {
-            // worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D,  this.zCoord + 0.5D,
+            // worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D,
             // "opensecurity:scanner1", 1.0F, 1);
-            return new Object[] {scan(true, offset)};
+            return new Object[] { scan(true, offset) };
         } else {
-            return new Object[] {false, "Not enough power in OC Network."};
+            return new Object[] { false, "Not enough power in OC Network." };
         }
     }
 
     @Callback(
-            doc =
-                    "function(optional:int:range):table; pushes a signal \"entityDetect\" for each entity in range (excluding players), optional set range.",
+            doc = "function(optional:int:range):table; pushes a signal \"entityDetect\" for each entity in range (excluding players), optional set range.",
             direct = true)
     public Object[] scanEntities(Context context, Arguments args) {
         range = args.optInteger(0, range);
@@ -207,12 +212,12 @@ public class TileEntityEntityDetector extends TileEntityMachineBase implements E
         }
         range = range / 2;
         if (node.changeBuffer(-5 * range) == 0) {
-            // worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D,  this.zCoord + 0.5D,
+            // worldObj.playSoundEffect(this.xCoord + 0.5D, this.yCoord + 0.5D, this.zCoord + 0.5D,
             // "opensecurity:scanner1", 1.0F, 1);
             // System.out.println(range * 0.1F + 0.9F);
-            return new Object[] {scan(false, offset)};
+            return new Object[] { scan(false, offset) };
         } else {
-            return new Object[] {false, "Not enough power in OC Network."};
+            return new Object[] { false, "Not enough power in OC Network." };
         }
     }
 }

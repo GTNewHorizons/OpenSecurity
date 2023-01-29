@@ -3,11 +3,14 @@ package pcl.opensecurity.client.renderer;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
+
 import org.lwjgl.opengl.GL11;
+
 import pcl.opensecurity.client.model.ModelEnergyBolt;
 import pcl.opensecurity.entity.EntityEnergyBolt;
 
 public class RenderEntityEnergyBolt extends Render {
+
     private static final ResourceLocation textures = new ResourceLocation("opensecurity:turret.png");
     private final ModelEnergyBolt model;
 

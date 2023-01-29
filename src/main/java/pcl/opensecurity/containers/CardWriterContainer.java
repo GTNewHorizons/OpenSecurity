@@ -2,15 +2,18 @@ package pcl.opensecurity.containers;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import pcl.opensecurity.gui.CardSlot;
 import pcl.opensecurity.tileentity.TileEntityCardWriter;
 
 public class CardWriterContainer extends Container {
+
     protected TileEntityCardWriter tileEntity;
     private Slot CardSlot;
     private List<Slot> specialSlots;
@@ -45,8 +48,9 @@ public class CardWriterContainer extends Container {
         playerSlots = new ArrayList<Slot>();
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                playerSlots.add(addSlotToContainer(
-                        new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 + 15 + 15)));
+                playerSlots.add(
+                        addSlotToContainer(
+                                new Slot(inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 84 + i * 18 + 15 + 15)));
             }
         }
 
@@ -94,9 +98,9 @@ public class CardWriterContainer extends Container {
                 if (!handledSpecialItem) {
                     if (slot >= inventoryStart && slot < hotbarStart) {
                         if (!mergeItemStack(stackInSlot, hotbarStart, hotbarEnd, false)) return null;
-                    } else if (slot >= hotbarStart
-                            && slot < hotbarEnd
-                            && !this.mergeItemStack(stackInSlot, inventoryStart, hotbarStart, false)) return null;
+                    } else if (slot >= hotbarStart && slot < hotbarEnd
+                            && !this.mergeItemStack(stackInSlot, inventoryStart, hotbarStart, false))
+                        return null;
                 }
             }
             // Try merge stack into inventory

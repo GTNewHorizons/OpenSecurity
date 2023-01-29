@@ -9,6 +9,7 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.blocks.BlockSecurityDoor;
 import pcl.opensecurity.util.BlockLocation;
@@ -46,10 +48,8 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
 
     public ItemStack[] DoorControllerCamo = new ItemStack[1];
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     public IIcon[] blockTextures = new IIcon[6];
 
@@ -140,17 +140,16 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
 
     public void rescan() {
         for (ForgeDirection direction : ForgeDirection.VALID_DIRECTIONS) {
-            block = worldObj.getBlock(
-                    xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
-            TileEntity te = worldObj.getTileEntity(
-                    xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            block = worldObj
+                    .getBlock(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
+            TileEntity te = worldObj
+                    .getTileEntity(xCoord + direction.offsetX, yCoord + direction.offsetY, zCoord + direction.offsetZ);
             if (block instanceof BlockSecurityDoor) {
                 this.door = (BlockSecurityDoor) block;
                 doorCoordX = xCoord + direction.offsetX;
                 doorCoordY = yCoord + direction.offsetY;
                 doorCoordZ = zCoord + direction.offsetZ;
-                if (te instanceof TileEntitySecureDoor
-                        && ((TileEntitySecureDoor) te).getPass().isEmpty()) {
+                if (te instanceof TileEntitySecureDoor && ((TileEntitySecureDoor) te).getPass().isEmpty()) {
                     ((TileEntitySecureDoor) te).setPassword(this.password);
                 }
             }
@@ -165,12 +164,12 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
                 if (te instanceof TileEntitySecureDoor) {
                     ((TileEntitySecureDoor) te).setPassword("");
                 }
-                return new Object[] {true, "Password Removed"};
+                return new Object[] { true, "Password Removed" };
             } else {
-                return new Object[] {false, "Password was not removed"};
+                return new Object[] { false, "Password was not removed" };
             }
         } else {
-            return new Object[] {false, "Owner of Controller and Door do not match."};
+            return new Object[] { false, "Owner of Controller and Door do not match." };
         }
     }
 
@@ -184,25 +183,25 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
                     ((TileEntitySecureDoor) te).setPassword(args.checkString(0));
                 }
 
-                return new Object[] {true, "Password set"};
+                return new Object[] { true, "Password set" };
             } else {
                 if (args.checkString(0).equals(te.getPass())) {
                     if (te instanceof TileEntitySecureDoor) {
                         ((TileEntitySecureDoor) te).setPassword(args.checkString(1));
                     }
-                    return new Object[] {true, "Password Changed"};
+                    return new Object[] { true, "Password Changed" };
                 } else {
-                    return new Object[] {false, "Password was not changed"};
+                    return new Object[] { false, "Password was not changed" };
                 }
             }
         } else {
-            return new Object[] {false, "Owner of Controller and Door do not match."};
+            return new Object[] { false, "Owner of Controller and Door do not match." };
         }
     }
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     private int getDoorOrientation(BlockDoor door, BlockLocation loc) {
@@ -221,7 +220,7 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
     public Object[] isOpen(Context context, Arguments args) {
         BlockSecurityDoor door = (BlockSecurityDoor) ContentRegistry.SecurityDoorBlock;
         BlockLocation loc = BlockLocation.get(worldObj, doorCoordX, doorCoordY, doorCoordZ);
-        return new Object[] {isDoorOpen(door, loc)};
+        return new Object[] { isDoorOpen(door, loc) };
     }
 
     @Callback
@@ -231,7 +230,7 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
         if (!isDoorOpen(door, loc)) {
             return toggle(context, args);
         }
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback
@@ -241,7 +240,7 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
         if (isDoorOpen(door, loc)) {
             return toggle(context, args);
         }
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback
@@ -255,7 +254,7 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
 
             if (ownerUUID.equals(te.getOwner())) {
                 if (!te.getPass().isEmpty() && !te.getPass().equals(args.checkString(0))) {
-                    return new Object[] {false, "Password Incorrect"};
+                    return new Object[] { false, "Password Incorrect" };
                 }
                 int direction = getDoorOrientation(door, loc);
                 // boolean isOpen = isDoorOpen(door, loc);
@@ -279,12 +278,16 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
                         break;
                 }
 
-                if ((loc.getBlock() == door)
-                                && (getDoorOrientation(door, loc) == direction)
-                                && (isDoorMirrored(door, loc) != isMirrored)
+                if ((loc.getBlock() == door) && (getDoorOrientation(door, loc) == direction)
+                        && (isDoorMirrored(door, loc) != isMirrored)
                         || worldObj.getBlock(doorCoordX, doorCoordY, doorCoordZ) instanceof BlockSecurityDoor) {
                     this.worldObj.playSoundEffect(
-                            loc.x + 0.5D, loc.y + 0.5D, loc.z + 0.5D, "opensecurity:security_door", 0.5F, 1);
+                            loc.x + 0.5D,
+                            loc.y + 0.5D,
+                            loc.z + 0.5D,
+                            "opensecurity:security_door",
+                            0.5F,
+                            1);
                     int i1 = worldObj.getBlockMetadata(doorCoordX, doorCoordY, doorCoordZ);
 
                     int j2;
@@ -295,7 +298,12 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
                         j2 ^= 4;
                         worldObj.setBlockMetadataWithNotify(doorCoordX, doorCoordY, doorCoordZ, j2, 2);
                         worldObj.markBlockRangeForRenderUpdate(
-                                doorCoordX, doorCoordY, doorCoordZ, doorCoordX, doorCoordY, doorCoordZ);
+                                doorCoordX,
+                                doorCoordY,
+                                doorCoordZ,
+                                doorCoordX,
+                                doorCoordY,
+                                doorCoordZ);
                         if (loc.getBlock() instanceof BlockSecurityDoor) {
                             worldObj.setBlockMetadataWithNotify(loc.x, loc.y, loc.z, j2, 2);
                             worldObj.markBlockRangeForRenderUpdate(loc.x, loc.y, loc.z, loc.x, loc.y, loc.z);
@@ -306,19 +314,24 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
                         j2 ^= 4;
                         worldObj.setBlockMetadataWithNotify(doorCoordX, doorCoordY - 1, doorCoordZ, j2, 2);
                         worldObj.markBlockRangeForRenderUpdate(
-                                doorCoordX, doorCoordY - 1, doorCoordZ, doorCoordX, doorCoordY - 1, doorCoordZ);
+                                doorCoordX,
+                                doorCoordY - 1,
+                                doorCoordZ,
+                                doorCoordX,
+                                doorCoordY - 1,
+                                doorCoordZ);
                         if (loc.getBlock() instanceof BlockSecurityDoor) {
                             worldObj.setBlockMetadataWithNotify(loc.x, loc.y - 1, loc.z, j2, 2);
                             worldObj.markBlockRangeForRenderUpdate(loc.x, loc.y, loc.z - 1, loc.x, loc.y, loc.z);
                         }
                     }
                 }
-                return new Object[] {!isDoorOpen(door, loc)};
+                return new Object[] { !isDoorOpen(door, loc) };
             } else {
-                return new Object[] {false, "Owner of Controller and Door do not match."};
+                return new Object[] { false, "Owner of Controller and Door do not match." };
             }
         } else {
-            return new Object[] {false, "Not enough power in OC Network."};
+            return new Object[] { false, "Not enough power in OC Network." };
         }
     }
 
@@ -348,8 +361,7 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
         DoorControllerCamo[0] = theItem;
         for (int getSide = 0; getSide < blockTextures.length; getSide++) {
             if (worldObj.isRemote) {
-                this.blockTextures[getSide] =
-                        theBlock.getIcon(getSide, theItem.getItem().getDamage(theItem));
+                this.blockTextures[getSide] = theBlock.getIcon(getSide, theItem.getItem().getDamage(theItem));
             }
         }
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);
@@ -361,8 +373,7 @@ public class TileEntityDoorController extends TileEntityMachineBase implements E
         Block theBlock = Block.getBlockFromItem(theItem.getItem());
         for (int getSide = 0; getSide < blockTextures.length; getSide++) {
             if (worldObj.isRemote) {
-                this.blockTextures[getSide] =
-                        theBlock.getIcon(getSide, theItem.getItem().getDamage(theItem));
+                this.blockTextures[getSide] = theBlock.getIcon(getSide, theItem.getItem().getDamage(theItem));
             }
         }
         worldObj.markBlockForUpdate(xCoord, yCoord, zCoord);

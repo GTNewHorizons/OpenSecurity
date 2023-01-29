@@ -5,6 +5,7 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import pcl.opensecurity.gui.CooldownUpgradeSlot;
 import pcl.opensecurity.gui.DamageUpgradeSlot;
 import pcl.opensecurity.gui.EnergyUpgradeSlot;
@@ -12,6 +13,7 @@ import pcl.opensecurity.gui.MovementUpgradeSlot;
 import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
 
 public class EnergyTurretContainer extends Container {
+
     protected TileEntityEnergyTurret tileEntity;
     private static final int INV_START = 8, // start at next slot after armor, e.g. 14
             INV_END = INV_START + 26, // 27 vanilla inventory slots total (i.e. the first one plus 26 more)
@@ -101,9 +103,8 @@ public class EnergyTurretContainer extends Container {
 
     // IMPORTANT to override the mergeItemStack method if your inventory stack size limit is 1
     /**
-     * Vanilla method fails to account for stack size limits of one, resulting in only one
-     * item getting placed in the slot and the rest disappearing into thin air; vanilla
-     * method also fails to check whether stack is valid for slot
+     * Vanilla method fails to account for stack size limits of one, resulting in only one item getting placed in the
+     * slot and the rest disappearing into thin air; vanilla method also fails to check whether stack is valid for slot
      */
     @Override
     protected boolean mergeItemStack(ItemStack stack, int start, int end, boolean backwards) {
@@ -122,8 +123,7 @@ public class EnergyTurretContainer extends Container {
                     continue;
                 }
 
-                if (itemstack1 != null
-                        && itemstack1.getItem() == stack.getItem()
+                if (itemstack1 != null && itemstack1.getItem() == stack.getItem()
                         && (!stack.getHasSubtypes() || stack.getItemDamage() == itemstack1.getItemDamage())
                         && ItemStack.areItemStackTagsEqual(stack, itemstack1)) {
                     int l = itemstack1.stackSize + stack.stackSize;
@@ -168,7 +168,8 @@ public class EnergyTurretContainer extends Container {
                         break;
                     } else {
                         putStackInSlot(
-                                k, new ItemStack(stack.getItem(), slot.getSlotStackLimit(), stack.getItemDamage()));
+                                k,
+                                new ItemStack(stack.getItem(), slot.getSlotStackLimit(), stack.getItemDamage()));
                         stack.stackSize -= slot.getSlotStackLimit();
                         // inventory.markDirty();
                         flag1 = true;

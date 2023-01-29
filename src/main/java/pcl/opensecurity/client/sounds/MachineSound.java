@@ -5,8 +5,7 @@ import net.minecraft.client.audio.PositionedSound;
 import net.minecraft.util.ResourceLocation;
 
 /**
- * @author SleepyTrousers, Vexatos, lifted from Computronics, will rewrite
- *         soon(tm)
+ * @author SleepyTrousers, Vexatos, lifted from Computronics, will rewrite soon(tm)
  */
 public class MachineSound extends PositionedSound implements ITickableSound {
 

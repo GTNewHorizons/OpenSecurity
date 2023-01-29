@@ -3,10 +3,10 @@
  */
 package pcl.opensecurity;
 
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 import java.util.concurrent.Callable;
+
 import li.cil.oc.api.fs.FileSystem;
+
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -16,6 +16,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
+
 import pcl.opensecurity.blocks.*;
 import pcl.opensecurity.client.CreativeTab;
 import pcl.opensecurity.drivers.RFIDReaderCardDriver;
@@ -23,6 +24,8 @@ import pcl.opensecurity.entity.EntityEnergyBolt;
 import pcl.opensecurity.items.*;
 import pcl.opensecurity.tileentity.*;
 import pcl.opensecurity.util.OSBreakEvent;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author Caitlyn
@@ -181,11 +184,11 @@ public class ContentRegistry {
         KVMBlock.setCreativeTab(CreativeTab);
         GameRegistry.registerTileEntity(TileEntityKVM.class, OpenSecurity.MODID + ".KVMTE");
 
-        //		if (BuildInfo.getVersionNumber() == 0) {
-        //			DisplayPanelBlock = new BlockDisplayPanel();
-        //			GameRegistry.registerBlock(DisplayPanelBlock, OpenSecurity.MODID + ".DisplayPanel");
-        //			DisplayPanelBlock.setCreativeTab(CreativeTab);
-        //		}
+        // if (BuildInfo.getVersionNumber() == 0) {
+        // DisplayPanelBlock = new BlockDisplayPanel();
+        // GameRegistry.registerBlock(DisplayPanelBlock, OpenSecurity.MODID + ".DisplayPanel");
+        // DisplayPanelBlock.setCreativeTab(CreativeTab);
+        // }
 
         GameRegistry.registerTileEntity(TileEntityDisplayPanel.class, OpenSecurity.MODID + ".DisplayPanelTE");
 
@@ -214,10 +217,11 @@ public class ContentRegistry {
 
     private static void registerRecipes() {
         Callable<FileSystem> SOSFactory = new Callable<FileSystem>() {
+
             @Override
             public FileSystem call() {
-                return li.cil.oc.api.FileSystem.fromClass(
-                        OpenSecurity.class, OpenSecurity.MODID, "/lua/SecureOS/SecureOS/");
+                return li.cil.oc.api.FileSystem
+                        .fromClass(OpenSecurity.class, OpenSecurity.MODID, "/lua/SecureOS/SecureOS/");
             }
         };
         secureOS_disk = li.cil.oc.api.Items.registerFloppy("SecureOS", 1, SOSFactory);
@@ -259,242 +263,308 @@ public class ContentRegistry {
             datacard = li.cil.oc.api.Items.get("dataCard1").createItemStack(1);
         }
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(rfidReaderCardItem, 1),
-                "MRM",
-                " N ",
-                "BC ",
-                'M',
-                t2microchip,
-                'R',
-                t1ram,
-                'N',
-                wlancard,
-                'B',
-                cardbase,
-                'C',
-                controlunit));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(rfidReaderCardItem, 1),
+                        "MRM",
+                        " N ",
+                        "BC ",
+                        'M',
+                        t2microchip,
+                        'R',
+                        t1ram,
+                        'N',
+                        wlancard,
+                        'B',
+                        cardbase,
+                        'C',
+                        controlunit));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(EntityDetectorBlock, 1),
-                "MRM",
-                "   ",
-                "BC ",
-                'M',
-                t2microchip,
-                'R',
-                t1ram,
-                'B',
-                cardbase,
-                'C',
-                controlunit));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(EntityDetectorBlock, 1),
+                        "MRM",
+                        "   ",
+                        "BC ",
+                        'M',
+                        t2microchip,
+                        'R',
+                        t1ram,
+                        'B',
+                        cardbase,
+                        'C',
+                        controlunit));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(rfidCardReaderBlock, 1),
-                " R ",
-                "PFT",
-                " C ",
-                'F',
-                rfidReaderCardItem,
-                'P',
-                pcb,
-                'R',
-                redstone,
-                'C',
-                cable,
-                'T',
-                t2microchip));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(rfidCardReaderBlock, 1),
+                        " R ",
+                        "PFT",
+                        " C ",
+                        'F',
+                        rfidReaderCardItem,
+                        'P',
+                        pcb,
+                        'R',
+                        redstone,
+                        'C',
+                        cable,
+                        'T',
+                        t2microchip));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(DataBlock, 1),
-                " D ",
-                "PFT",
-                " C ",
-                'D',
-                datacard,
-                'P',
-                pcb,
-                'R',
-                redstone,
-                'C',
-                cable,
-                'T',
-                t2microchip));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(DataBlock, 1),
+                        " D ",
+                        "PFT",
+                        " C ",
+                        'D',
+                        datacard,
+                        'P',
+                        pcb,
+                        'R',
+                        redstone,
+                        'C',
+                        cable,
+                        'T',
+                        t2microchip));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(AlarmBlock, 1),
-                " R ",
-                "PNC",
-                " T ",
-                'N',
-                noteblock,
-                'P',
-                pcb,
-                'R',
-                redstone,
-                'C',
-                cable,
-                'T',
-                t2microchip));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(AlarmBlock, 1),
+                        " R ",
+                        "PNC",
+                        " T ",
+                        'N',
+                        noteblock,
+                        'P',
+                        pcb,
+                        'R',
+                        redstone,
+                        'C',
+                        cable,
+                        'T',
+                        t2microchip));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(cardWriterBlock, 1),
-                "TRT",
-                "SUS",
-                "PC ",
-                'P',
-                pcb,
-                'C',
-                cable,
-                'T',
-                t2microchip,
-                'S',
-                transistor,
-                'U',
-                controlunit,
-                'R',
-                t1ram));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(cardWriterBlock, 1),
+                        "TRT",
+                        "SUS",
+                        "PC ",
+                        'P',
+                        pcb,
+                        'C',
+                        cable,
+                        'T',
+                        t2microchip,
+                        'S',
+                        transistor,
+                        'U',
+                        controlunit,
+                        'R',
+                        t1ram));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(magCardReaderBlock, 1),
-                "T T",
-                "S S",
-                "PC ",
-                'P',
-                pcb,
-                'C',
-                cable,
-                'T',
-                t2microchip,
-                'S',
-                transistor));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(magCardReaderBlock, 1),
+                        "T T",
+                        "S S",
+                        "PC ",
+                        'P',
+                        pcb,
+                        'C',
+                        cable,
+                        'T',
+                        t2microchip,
+                        'S',
+                        transistor));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(rfidCardItem, 6), "P P", " S ", "PTP", 'P', paper, 'S', transistor, 'T', t1microchip));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(rfidCardItem, 6),
+                        "P P",
+                        " S ",
+                        "PTP",
+                        'P',
+                        paper,
+                        'S',
+                        transistor,
+                        'T',
+                        t1microchip));
 
         GameRegistry.addRecipe(
                 new ShapedOreRecipe(new ItemStack(magCardItem, 6), "P P", " S ", "P P", 'P', paper, 'S', transistor));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(securityDoorItem, 1),
-                "TGT",
-                "ODO",
-                "SOS",
-                'G',
-                glass,
-                'D',
-                door,
-                'S',
-                transistor,
-                'T',
-                t2microchip,
-                'O',
-                obsidian));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(securityDoorItem, 1),
+                        "TGT",
+                        "ODO",
+                        "SOS",
+                        'G',
+                        glass,
+                        'D',
+                        door,
+                        'S',
+                        transistor,
+                        'T',
+                        t2microchip,
+                        'O',
+                        obsidian));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(securityDoorPrivateItem, 1),
-                "TOT",
-                "ODO",
-                "SOS",
-                'D',
-                door,
-                'S',
-                transistor,
-                'T',
-                t2microchip,
-                'O',
-                obsidian));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(securityDoorPrivateItem, 1),
+                        "TOT",
+                        "ODO",
+                        "SOS",
+                        'D',
+                        door,
+                        'S',
+                        transistor,
+                        'T',
+                        t2microchip,
+                        'O',
+                        obsidian));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(DoorControllerBlock, 1),
-                "TOT",
-                "OCO",
-                "SBS",
-                'B',
-                cable,
-                'C',
-                controlunit,
-                'S',
-                transistor,
-                'T',
-                t2microchip,
-                'O',
-                obsidian));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(DoorControllerBlock, 1),
+                        "TOT",
+                        "OCO",
+                        "SBS",
+                        'B',
+                        cable,
+                        'C',
+                        controlunit,
+                        'S',
+                        transistor,
+                        'T',
+                        t2microchip,
+                        'O',
+                        obsidian));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(SwitchableHubBlock, 1),
-                "TBT",
-                "BSB",
-                "RBR",
-                'B',
-                cable,
-                'S',
-                oc_relay,
-                'R',
-                transistor,
-                'T',
-                t2microchip,
-                'O',
-                obsidian));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(SwitchableHubBlock, 1),
+                        "TBT",
+                        "BSB",
+                        "RBR",
+                        'B',
+                        cable,
+                        'S',
+                        oc_relay,
+                        'R',
+                        transistor,
+                        'T',
+                        t2microchip,
+                        'O',
+                        obsidian));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(KVMBlock, 1),
-                " B ",
-                "BSB",
-                "RBR",
-                'B',
-                cable,
-                'S',
-                oc_relay,
-                'R',
-                transistor,
-                'T',
-                t2microchip,
-                'O',
-                obsidian));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(KVMBlock, 1),
+                        " B ",
+                        "BSB",
+                        "RBR",
+                        'B',
+                        cable,
+                        'S',
+                        oc_relay,
+                        'R',
+                        transistor,
+                        'T',
+                        t2microchip,
+                        'O',
+                        obsidian));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(energyTurretBlock, 1), "ABA", "BCB", "ABA", 'A', iron, 'B', t2microchip, 'C', diamond));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(energyTurretBlock, 1),
+                        "ABA",
+                        "BCB",
+                        "ABA",
+                        'A',
+                        iron,
+                        'B',
+                        t2microchip,
+                        'C',
+                        diamond));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(damageUpgradeItem, 1), "A A", " G ", "A A", 'A', arrow, 'G', gunpowder));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(damageUpgradeItem, 1),
+                        "A A",
+                        " G ",
+                        "A A",
+                        'A',
+                        arrow,
+                        'G',
+                        gunpowder));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(movementUpgradeItem, 1), "R R", " P ", "R R", 'P', piston, 'R', redstone));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(movementUpgradeItem, 1),
+                        "R R",
+                        " P ",
+                        "R R",
+                        'P',
+                        piston,
+                        'R',
+                        redstone));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(cooldownUpgradeItem, 1), "R R", " W ", "R R", 'W', water, 'R', redstone));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(cooldownUpgradeItem, 1),
+                        "R R",
+                        " W ",
+                        "R R",
+                        'W',
+                        water,
+                        'R',
+                        redstone));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(energyUpgradeItem, 1), "R R", " B ", "R R", 'B', batteryUpgrade, 'R', redstone));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(energyUpgradeItem, 1),
+                        "R R",
+                        " B ",
+                        "R R",
+                        'B',
+                        batteryUpgrade,
+                        'R',
+                        redstone));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(keypadLockBlock, 1),
-                "TIT",
-                "INI",
-                "ICI",
-                'T',
-                transistor,
-                'N',
-                numpad,
-                'C',
-                t1microchip,
-                'I',
-                iron));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(keypadLockBlock, 1),
+                        "TIT",
+                        "INI",
+                        "ICI",
+                        'T',
+                        transistor,
+                        'N',
+                        numpad,
+                        'C',
+                        t1microchip,
+                        'I',
+                        iron));
 
-        GameRegistry.addRecipe(new ShapedOreRecipe(
-                new ItemStack(biometricScanner, 1),
-                "SIS",
-                "STS",
-                "SCS",
-                'T',
-                transistor,
-                'C',
-                t1microchip,
-                'I',
-                iron,
-                'S',
-                stone));
+        GameRegistry.addRecipe(
+                new ShapedOreRecipe(
+                        new ItemStack(biometricScanner, 1),
+                        "SIS",
+                        "STS",
+                        "SCS",
+                        'T',
+                        transistor,
+                        'C',
+                        t1microchip,
+                        'I',
+                        iron,
+                        'S',
+                        stone));
 
         GameRegistry.addShapelessRecipe(secureOS_disk, floppy, magCardItem);
         OpenSecurity.logger.info("Registered Recipes");

@@ -8,6 +8,7 @@ import cpw.mods.fml.relauncher.SideOnly;
  *
  */
 public class TileEntityDisplayPanel extends TileEntityMachineBase {
+
     @SideOnly(Side.CLIENT)
     private float lineScroll = 0.0f;
 

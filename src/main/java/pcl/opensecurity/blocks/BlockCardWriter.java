@@ -1,8 +1,7 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.texture.IIconRegister;
 import net.minecraft.entity.item.EntityItem;
@@ -13,8 +12,11 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.tileentity.TileEntityCardWriter;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockCardWriter extends BlockOSBase {
 
@@ -36,8 +38,7 @@ public class BlockCardWriter extends BlockOSBase {
     }
 
     /**
-     * From the specified side and block metadata retrieves the blocks texture.
-     * Args: side, metadata
+     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
     @Override
     @SideOnly(Side.CLIENT)
@@ -60,16 +61,8 @@ public class BlockCardWriter extends BlockOSBase {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int metadata,
-            float clickX,
-            float clickY,
-            float clickZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float clickX,
+            float clickY, float clickZ) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity == null || player.isSneaking()) {
             return false;
@@ -115,8 +108,7 @@ public class BlockCardWriter extends BlockOSBase {
                     entityitem.motionZ = (float) random.nextGaussian() * velocity;
 
                     if (itemstack.hasTagCompound())
-                        entityitem.getEntityItem().setTagCompound((NBTTagCompound)
-                                itemstack.getTagCompound().copy());
+                        entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
                 }
             }
         }

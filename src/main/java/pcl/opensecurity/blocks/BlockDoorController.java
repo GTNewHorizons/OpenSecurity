@@ -1,8 +1,7 @@
 package pcl.opensecurity.blocks;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.common.item.Wrench;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockStainedGlass;
@@ -18,9 +17,12 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.tileentity.TileEntityDoorController;
 import pcl.opensecurity.util.BlockLocation;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDoorController extends BlockOSBase {
 
@@ -36,18 +38,16 @@ public class BlockDoorController extends BlockOSBase {
      * Called when the block is placed in the world.
      */
     @Override
-    public void onBlockPlacedBy(
-            World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase, ItemStack par6ItemStack) {
+    public void onBlockPlacedBy(World par1World, int x, int y, int z, EntityLivingBase par5EntityLivingBase,
+            ItemStack par6ItemStack) {
         TileEntity te = par1World.getTileEntity(x, y, z);
         BlockLocation loc = BlockLocation.get(par1World, x, y, z);
         ((TileEntityDoorController) te).rescan();
-        ((TileEntityDoorController) te)
-                .setOwner(par5EntityLivingBase.getUniqueID().toString());
-        ((TileEntityDoorController) te)
-                .overrideTexture(
-                        ContentRegistry.DoorControllerBlock,
-                        new ItemStack(Item.getItemFromBlock(ContentRegistry.DoorControllerBlock)),
-                        ForgeDirection.getOrientation(1));
+        ((TileEntityDoorController) te).setOwner(par5EntityLivingBase.getUniqueID().toString());
+        ((TileEntityDoorController) te).overrideTexture(
+                ContentRegistry.DoorControllerBlock,
+                new ItemStack(Item.getItemFromBlock(ContentRegistry.DoorControllerBlock)),
+                ForgeDirection.getOrientation(1));
     }
 
     @Override
@@ -62,8 +62,7 @@ public class BlockDoorController extends BlockOSBase {
     public void onBlockClicked(World world, int x, int y, int z, EntityPlayer player) {
         TileEntityDoorController tileEntity = (TileEntityDoorController) world.getTileEntity(x, y, z);
         // If the user is not the owner, or the user is not in creative drop out.
-        if ((tileEntity.getOwner() != null
-                        && tileEntity.getOwner().equals(player.getUniqueID().toString()))
+        if ((tileEntity.getOwner() != null && tileEntity.getOwner().equals(player.getUniqueID().toString()))
                 || player.capabilities.isCreativeMode) {
             this.setResistance(4F);
             this.setHardness(6F);
@@ -74,8 +73,8 @@ public class BlockDoorController extends BlockOSBase {
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world, int x, int y, int z, EntityPlayer player, int side, float clickX, float clickY, float clickZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int side, float clickX,
+            float clickY, float clickZ) {
         TileEntityDoorController tileEntity = (TileEntityDoorController) world.getTileEntity(x, y, z);
         if (tileEntity == null || player.isSneaking()) {
             return false;
@@ -90,15 +89,11 @@ public class BlockDoorController extends BlockOSBase {
             }
         }
         // Change the block texture
-        if (player.getCurrentEquippedItem() != null
-                && player.getCurrentEquippedItem().getItem() instanceof ItemBlock) {
+        if (player.getCurrentEquippedItem() != null && player.getCurrentEquippedItem().getItem() instanceof ItemBlock) {
             Block block = Block.getBlockFromItem(player.getCurrentEquippedItem().getItem());
             Item oldBlock = tileEntity.DoorControllerCamo[0].getItem();
             if (block.isOpaqueCube() || block instanceof BlockGlass || block instanceof BlockStainedGlass) {
-                if (!tileEntity
-                        .DoorControllerCamo[0]
-                        .getItem()
-                        .equals(player.getCurrentEquippedItem().getItem())) {
+                if (!tileEntity.DoorControllerCamo[0].getItem().equals(player.getCurrentEquippedItem().getItem())) {
                     if (player.capabilities.isCreativeMode) {
                         tileEntity.overrideTexture(
                                 block,
@@ -123,21 +118,19 @@ public class BlockDoorController extends BlockOSBase {
             // Remove the block texture with the scrench
         } else if (player.getCurrentEquippedItem() != null
                 && player.getCurrentEquippedItem().getItem() instanceof Wrench) {
-            if (!world.isRemote) {
-                if (!tileEntity
-                        .DoorControllerCamo[0]
-                        .getItem()
-                        .equals(Item.getItemFromBlock(ContentRegistry.DoorControllerBlock))) {
-                    EntityItem myItemEntity = new EntityItem(world, x, y, z, tileEntity.DoorControllerCamo[0]);
-                    world.spawnEntityInWorld(myItemEntity);
+                    if (!world.isRemote) {
+                        if (!tileEntity.DoorControllerCamo[0].getItem()
+                                .equals(Item.getItemFromBlock(ContentRegistry.DoorControllerBlock))) {
+                            EntityItem myItemEntity = new EntityItem(world, x, y, z, tileEntity.DoorControllerCamo[0]);
+                            world.spawnEntityInWorld(myItemEntity);
+                        }
+                    }
+                    tileEntity.overrideTexture(
+                            ContentRegistry.DoorControllerBlock,
+                            new ItemStack(Item.getItemFromBlock(ContentRegistry.DoorControllerBlock)),
+                            ForgeDirection.getOrientation(side));
+                    world.scheduleBlockUpdate(x, y, z, tileEntity.block, 5);
                 }
-            }
-            tileEntity.overrideTexture(
-                    ContentRegistry.DoorControllerBlock,
-                    new ItemStack(Item.getItemFromBlock(ContentRegistry.DoorControllerBlock)),
-                    ForgeDirection.getOrientation(side));
-            world.scheduleBlockUpdate(x, y, z, tileEntity.block, 5);
-        }
         return true;
     }
 
@@ -197,8 +190,7 @@ public class BlockDoorController extends BlockOSBase {
     }
 
     /**
-     * From the specified side and block metadata retrieves the blocks texture.
-     * Args: side, metadata
+     * From the specified side and block metadata retrieves the blocks texture. Args: side, metadata
      */
     @Override
     @SideOnly(Side.CLIENT)

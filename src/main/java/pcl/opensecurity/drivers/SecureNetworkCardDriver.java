@@ -1,6 +1,7 @@
 package pcl.opensecurity.drivers;
 
 import java.util.Iterator;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -18,10 +19,9 @@ public class SecureNetworkCardDriver extends NetworkCard {
     public SecureNetworkCardDriver(EnvironmentHost container) {
         super(container);
         this.container = container;
-        this.setNode(Network.newNode(this, Visibility.Network)
-                .withComponent("modem", Visibility.Neighbors)
-                .withConnector(10)
-                .create());
+        this.setNode(
+                Network.newNode(this, Visibility.Network).withComponent("modem", Visibility.Neighbors).withConnector(10)
+                        .create());
     }
 
     @Callback(doc = "function() -- Randomises the UUID")
@@ -34,10 +34,9 @@ public class SecureNetworkCardDriver extends NetworkCard {
         Iterable<Node> tempNodes = this.node().neighbors();
 
         this.node().remove();
-        this.setNode(Network.newNode(this, Visibility.Network)
-                .withComponent("modem", Visibility.Neighbors)
-                .withConnector(10)
-                .create());
+        this.setNode(
+                Network.newNode(this, Visibility.Network).withComponent("modem", Visibility.Neighbors).withConnector(10)
+                        .create());
 
         Iterator<Node> meh = tempNodes.iterator();
         Network.joinNewNetwork(node());
@@ -48,9 +47,9 @@ public class SecureNetworkCardDriver extends NetworkCard {
         }
 
         OpenSecurity.logger.info("New: " + this.node().address());
-        return new Object[] {true};
+        return new Object[] { true };
         // } else {
-        //	return new Object[] { false };
+        // return new Object[] { false };
         // }
     }
 }

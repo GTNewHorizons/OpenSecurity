@@ -5,6 +5,7 @@ package pcl.opensecurity.blocks;
 
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.tileentity.TileEntityDisplayPanel;
 
 /**

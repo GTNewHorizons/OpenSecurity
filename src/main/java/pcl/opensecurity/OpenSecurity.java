@@ -1,5 +1,21 @@
 package pcl.opensecurity;
 
+import java.io.File;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
+import net.minecraftforge.common.config.Configuration;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import pcl.opensecurity.gui.OSGUIHandler;
+import pcl.opensecurity.networking.HandlerKeypadButton;
+import pcl.opensecurity.networking.OSPacketHandler;
+import pcl.opensecurity.networking.OSPacketHandler.PacketHandler;
+import pcl.opensecurity.networking.PacketBoltFire;
+import pcl.opensecurity.networking.PacketKeypadButton;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -11,19 +27,6 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
-import java.io.File;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import net.minecraftforge.common.config.Configuration;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import pcl.opensecurity.gui.OSGUIHandler;
-import pcl.opensecurity.networking.HandlerKeypadButton;
-import pcl.opensecurity.networking.OSPacketHandler;
-import pcl.opensecurity.networking.OSPacketHandler.PacketHandler;
-import pcl.opensecurity.networking.PacketBoltFire;
-import pcl.opensecurity.networking.PacketKeypadButton;
 
 @Mod(
         modid = OpenSecurity.MODID,
@@ -76,14 +79,12 @@ public class OpenSecurity {
         ignoreUUIDs = cfg.ignoreUUIDs;
         registerBlockBreakEvent = cfg.registerBlockBreak;
 
-        if ((event.getSourceFile().getName().endsWith(".jar") || debug)
-                && event.getSide().isClient()
+        if ((event.getSourceFile().getName().endsWith(".jar") || debug) && event.getSide().isClient()
                 && cfg.enableMUD) {
             logger.info("Registering mod with OpenUpdater");
             try {
                 Class.forName("pcl.mud.OpenUpdater")
-                        .getDeclaredMethod("registerMod", ModContainer.class, URL.class, URL.class)
-                        .invoke(
+                        .getDeclaredMethod("registerMod", ModContainer.class, URL.class, URL.class).invoke(
                                 null,
                                 FMLCommonHandler.instance().findContainerFor(this),
                                 new URL("http://PC-Logix.com/OpenSecurity/get_latest_build.php?mcver=1.7.10"),

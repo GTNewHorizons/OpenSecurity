@@ -1,7 +1,5 @@
 package pcl.opensecurity.tileentity;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -13,17 +11,19 @@ import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.SidedEnvironment;
 import li.cil.oc.api.network.Visibility;
 import li.cil.oc.api.prefab.TileEntitySidedEnvironment;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+
 public class TileEntitySwitchableHub extends TileEntitySidedEnvironment implements SidedEnvironment, Environment {
 
-    protected Node node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
+    protected Node node = Network.newNode(this, Visibility.Network).withComponent(getComponentName()).withConnector(32)
             .create();
 
     public boolean north = false;
@@ -168,20 +168,20 @@ public class TileEntitySwitchableHub extends TileEntitySidedEnvironment implemen
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback
     public Object[] setPassword(Context context, Arguments args) {
         if (password.isEmpty()) {
             password = args.checkString(0);
-            return new Object[] {"Password set"};
+            return new Object[] { "Password set" };
         } else {
             if (args.checkString(0).equals(password)) {
                 password = args.checkString(1);
-                return new Object[] {"Password Changed"};
+                return new Object[] { "Password Changed" };
             } else {
-                return new Object[] {"Password was not changed"};
+                return new Object[] { "Password was not changed" };
             }
         }
     }
@@ -191,11 +191,12 @@ public class TileEntitySwitchableHub extends TileEntitySidedEnvironment implemen
         int side = args.checkInteger(0);
         Boolean isEnabled = args.checkBoolean(1);
         int meta = worldObj.getBlockMetadata(xCoord, yCoord, zCoord);
-        ForgeDirection facing =
-                getWorldSide(ForgeDirection.getOrientation(side).name(), ForgeDirection.getOrientation(meta));
+        ForgeDirection facing = getWorldSide(
+                ForgeDirection.getOrientation(side).name(),
+                ForgeDirection.getOrientation(meta));
 
         if (!password.isEmpty() && !password.equals(args.checkString(2))) {
-            return new Object[] {"Password Incorrect"};
+            return new Object[] { "Password Incorrect" };
         }
 
         switch (facing) {
@@ -231,7 +232,7 @@ public class TileEntitySwitchableHub extends TileEntitySidedEnvironment implemen
             Network.joinOrCreateNetwork(this);
         }
         if (((Connector) node).changeBuffer(-5) == 0) {
-            return new Object[] {"ok"};
+            return new Object[] { "ok" };
         } else {
             throw new Exception("Not enough power in OC Network.");
         }

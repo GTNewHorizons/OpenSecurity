@@ -10,6 +10,7 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -20,6 +21,7 @@ import net.minecraft.network.Packet;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.client.sounds.ISoundTile;
@@ -30,6 +32,7 @@ import pcl.opensecurity.items.ItemEnergyUpgrade;
 import pcl.opensecurity.items.ItemMovementUpgrade;
 
 public class TileEntityEnergyTurret extends TileEntityMachineBase implements Environment, IInventory, ISoundTile {
+
     static final float maxShaftLengthForOneBlock = 0.5f;
 
     public float yaw = 0.0F;
@@ -49,10 +52,8 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
     public boolean power = true;
     public boolean armed = true;
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     public TileEntityEnergyTurret() {
         super();
@@ -200,7 +201,12 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
         if (moveSound) {
             if (soundTicks == 0) {
                 worldObj.playSoundEffect(
-                        this.xCoord, this.yCoord, this.zCoord, "opensecurity:turretMove", 10 / 15 + 0.5F, 1.0F);
+                        this.xCoord,
+                        this.yCoord,
+                        this.zCoord,
+                        "opensecurity:turretMove",
+                        10 / 15 + 0.5F,
+                        1.0F);
             }
             soundTicks++;
             if (soundTicks > 5) {
@@ -213,12 +219,12 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
 
     @Callback(doc = "function():number -- Current real yaw", direct = true)
     public Object[] getYaw(Context context, Arguments args) {
-        return new Object[] {yaw};
+        return new Object[] { yaw };
     }
 
     @Callback(doc = "function():number -- Current real pitch", direct = true)
     public Object[] getPitch(Context context, Arguments args) {
-        return new Object[] {pitch};
+        return new Object[] { pitch };
     }
 
     @Callback(doc = "function():boolean -- Returns whether the gun has reached the set position", direct = true)
@@ -227,19 +233,19 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
         double dYaw = Math.abs(yaw - setpointYaw);
         double delta = dPitch + dYaw;
         boolean onPoint = delta < 0.5F;
-        return new Object[] {onPoint, delta};
+        return new Object[] { onPoint, delta };
     }
 
     @Callback(
             doc = "function():boolean -- Returns whether the gun is ready to fire again (cooled down and armed)",
             direct = true)
     public Object[] isReady(Context context, Arguments args) {
-        return new Object[] {!(tickCool > 0) && armed && barrel == 1F};
+        return new Object[] { !(tickCool > 0) && armed && barrel == 1F };
     }
 
     @Callback(doc = "function():boolean,number -- Returns whether the gun is powered", direct = true)
     public Object[] isPowered(Context context, Arguments args) {
-        return new Object[] {power};
+        return new Object[] { power };
     }
 
     float getMaxAvailableShaftLength(float newExt) {
@@ -291,17 +297,16 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
         float setTo = setShaft((float) args.checkDouble(0));
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         markDirty();
-        return new Object[] {setTo};
+        return new Object[] { setTo };
     }
 
     @Callback(doc = "function():boolean -- Get gun shaft extension", direct = true)
     public Object[] getShaftLength(Context context, Arguments args) throws Exception {
-        return new Object[] {this.shaft};
+        return new Object[] { this.shaft };
     }
 
     @Callback(
-            doc =
-                    "function(yaw:number, pitch:number) -- Changes the gun's setpoint (Yaw ranges (0.0..360) Pitch ranges (-45..90))")
+            doc = "function(yaw:number, pitch:number) -- Changes the gun's setpoint (Yaw ranges (0.0..360) Pitch ranges (-45..90))")
     public Object[] moveTo(Context context, Arguments args) throws Exception {
         if (power) {
             soundName = "turretMove";
@@ -313,7 +318,7 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
 
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             markDirty();
-            return new Object[] {true};
+            return new Object[] { true };
         } else {
             throw new Exception("powered off");
         }
@@ -337,7 +342,7 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
 
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             markDirty();
-            return new Object[] {true};
+            return new Object[] { true };
         } else {
             throw new Exception("powered off");
         }
@@ -351,7 +356,7 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             markDirty();
         }
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback
@@ -359,7 +364,7 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
         power = true;
         this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
         markDirty();
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     void doPowerOff() {
@@ -374,12 +379,11 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
     @Callback
     public Object[] powerOff(Context context, Arguments args) {
         doPowerOff();
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Callback(
-            doc =
-                    "function():table -- Fires the gun.  More damage means longer cooldown and more energy draw. Returns true for success and throws error with a message for failure")
+            doc = "function():table -- Fires the gun.  More damage means longer cooldown and more energy draw. Returns true for success and throws error with a message for failure")
     public Object[] fire(Context context, Arguments args) throws Exception {
         if (power) {
             if (!armed || barrel < 1F) throw new Exception("Not armed");
@@ -419,15 +423,19 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
             soundName = "turretFire";
             setSound(soundName);
 
-            if (!worldObj.isRemote)
-                worldObj.playSoundEffect(
-                        this.xCoord, this.yCoord, this.zCoord, "opensecurity:" + this.soundName, 10 / 15 + 0.5F, 1.0F);
+            if (!worldObj.isRemote) worldObj.playSoundEffect(
+                    this.xCoord,
+                    this.yCoord,
+                    this.zCoord,
+                    "opensecurity:" + this.soundName,
+                    10 / 15 + 0.5F,
+                    1.0F);
 
             this.worldObj.markBlockForUpdate(this.xCoord, this.yCoord, this.zCoord);
             markDirty();
 
             this.worldObj.spawnEntityInWorld(bolt);
-            return new Object[] {true};
+            return new Object[] { true };
         } else {
             throw new Exception("powered off");
         }
@@ -530,8 +538,13 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
 
     public float getRealYaw() {
         // return ((float)Math.PI) * yaw / 180;
-        if (pcl.opensecurity.OpenSecurity.cfg.turretReverseRotation)
-            return ((float) Math.PI) * (0 - yaw) / 180; // TODO: set legacy compatible offset (90? -90?)
+        if (pcl.opensecurity.OpenSecurity.cfg.turretReverseRotation) return ((float) Math.PI) * (0 - yaw) / 180; // TODO:
+                                                                                                                 // set
+                                                                                                                 // legacy
+                                                                                                                 // compatible
+                                                                                                                 // offset
+                                                                                                                 // (90?
+                                                                                                                 // -90?)
         else return ((float) Math.PI) * yaw / 180;
     }
 
@@ -643,11 +656,9 @@ public class TileEntityEnergyTurret extends TileEntityMachineBase implements Env
 
     @Override
     public AxisAlignedBB getRenderBoundingBox() {
-        if (isUpright())
-            return AxisAlignedBB.getBoundingBox(
-                    xCoord, yCoord, zCoord, xCoord + 1, yCoord + 0.75 + shaft * 0.5, zCoord + 1);
-        else
-            return AxisAlignedBB.getBoundingBox(
-                    xCoord, yCoord + 0.25 - shaft * 0.5, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
+        if (isUpright()) return AxisAlignedBB
+                .getBoundingBox(xCoord, yCoord, zCoord, xCoord + 1, yCoord + 0.75 + shaft * 0.5, zCoord + 1);
+        else return AxisAlignedBB
+                .getBoundingBox(xCoord, yCoord + 0.25 - shaft * 0.5, zCoord, xCoord + 1, yCoord + 1, zCoord + 1);
     }
 }

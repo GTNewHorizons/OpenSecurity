@@ -2,6 +2,7 @@ package pcl.opensecurity.tileentity;
 
 import java.nio.charset.Charset;
 import java.util.UUID;
+
 import li.cil.oc.Settings;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -15,6 +16,7 @@ import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
 import li.cil.oc.common.item.EEPROM;
 import li.cil.oc.server.network.Network;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.ISidedInventory;
@@ -23,6 +25,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.items.ItemMagCard;
@@ -31,10 +34,8 @@ import scala.actors.threadpool.Arrays;
 
 public class TileEntityCardWriter extends TileEntityMachineBase implements Environment, IInventory, ISidedInventory {
 
-    public ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    public ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     protected boolean addedToNetwork = false;
 
@@ -98,9 +99,9 @@ public class TileEntityCardWriter extends TileEntityMachineBase implements Envir
         }
     }
 
-    private static final int[] slots_top = new int[] {0};
-    private static final int[] slots_bottom = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
-    private static final int[] slots_sides = new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9};
+    private static final int[] slots_top = new int[] { 0 };
+    private static final int[] slots_bottom = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
+    private static final int[] slots_sides = new int[] { 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     private ItemStack[] CardWriterItemStacks = new ItemStack[12];
 
     @Override
@@ -192,13 +193,10 @@ public class TileEntityCardWriter extends TileEntityMachineBase implements Envir
 
     @Override
     public boolean isItemValidForSlot(int i, ItemStack itemstack) {
-        if (i == 0
-                && (itemstack.getItem() instanceof ItemRFIDCard
-                        || itemstack.getItem() instanceof ItemMagCard
-                        || itemstack.getItem() instanceof EEPROM)) {
-            return itemstack.stackTagCompound == null
-                    || !itemstack.stackTagCompound.hasKey("locked")
-                            && !itemstack.stackTagCompound.hasKey("oc:readonly");
+        if (i == 0 && (itemstack.getItem() instanceof ItemRFIDCard || itemstack.getItem() instanceof ItemMagCard
+                || itemstack.getItem() instanceof EEPROM)) {
+            return itemstack.stackTagCompound == null || !itemstack.stackTagCompound.hasKey("locked")
+                    && !itemstack.stackTagCompound.hasKey("oc:readonly");
         }
         return false;
     }
@@ -306,16 +304,12 @@ public class TileEntityCardWriter extends TileEntityMachineBase implements Envir
                             CardWriterItemStacks[x] = eepromItem;
                             NBTTagCompound oc_data = new NBTTagCompound();
                             NBTTagCompound our_data = new NBTTagCompound();
-                            if (!OpenSecurity.cfg.biggerEEPROM
-                                    && code.length > Settings.get().eepromSize()) {
-                                code = Arrays.copyOfRange(
-                                        code, 0, Settings.get().eepromSize());
+                            if (!OpenSecurity.cfg.biggerEEPROM && code.length > Settings.get().eepromSize()) {
+                                code = Arrays.copyOfRange(code, 0, Settings.get().eepromSize());
                             } else if (OpenSecurity.cfg.biggerEEPROM && code.length > 8096) {
-                                code = Arrays.copyOfRange(
-                                        code, 0, Settings.get().eepromSize());
+                                code = Arrays.copyOfRange(code, 0, Settings.get().eepromSize());
                             }
-                            if (!OpenSecurity.cfg.biggerEEPROM
-                                    && title.length() > Settings.get().eepromDataSize()) {
+                            if (!OpenSecurity.cfg.biggerEEPROM && title.length() > Settings.get().eepromDataSize()) {
                                 title = title.substring(0, Settings.get().eepromDataSize());
                             } else if (OpenSecurity.cfg.biggerEEPROM && title.length() > 512) {
                                 title = title.substring(0, Settings.get().eepromDataSize());
@@ -326,21 +320,20 @@ public class TileEntityCardWriter extends TileEntityMachineBase implements Envir
                             oc_data.setTag("oc:data", our_data);
                             CardWriterItemStacks[x].setTagCompound(oc_data);
                             decrStackSize(0, 1);
-                            return new Object[] {true};
+                            return new Object[] { true };
                         }
-                        return new Object[] {false, "Item is not EEPROM"};
+                        return new Object[] { false, "Item is not EEPROM" };
                     }
                 }
-                return new Object[] {false, "No Empty Slots"};
+                return new Object[] { false, "No Empty Slots" };
             }
-            return new Object[] {false, "No EEPROM in slot"};
+            return new Object[] { false, "No EEPROM in slot" };
         }
-        return new Object[] {false, "Data is Null"};
+        return new Object[] { false, "Data is Null" };
     }
 
     @Callback(
-            doc =
-                    "function(string: data, string: displayName, boolean: locked, int: color):string; writes data to the card, (64 characters for RFID, or 128 for MagStripe), the rest is silently discarded, 2nd argument will change the displayed name of the card in your inventory. if you pass true to the 3rd argument you will not be able to erase, or rewrite data, the 3rd argument will set the color of the card, use OC's sides api.",
+            doc = "function(string: data, string: displayName, boolean: locked, int: color):string; writes data to the card, (64 characters for RFID, or 128 for MagStripe), the rest is silently discarded, 2nd argument will change the displayed name of the card in your inventory. if you pass true to the 3rd argument you will not be able to erase, or rewrite data, the 3rd argument will set the color of the card, use OC's sides api.",
             direct = true)
     public Object[] write(Context context, Arguments args) {
         String data = args.checkString(0);
@@ -429,12 +422,9 @@ public class TileEntityCardWriter extends TileEntityMachineBase implements Envir
                                 CardWriterItemStacks[x].setStackDisplayName(title);
                             }
                             // System.out.println(CardWriterItemStacks[x].stackTagCompound.getString("uuid"));
-                            if (CardWriterItemStacks[x]
-                                    .stackTagCompound
-                                    .getString("uuid")
-                                    .isEmpty()) {
-                                CardWriterItemStacks[x].stackTagCompound.setString(
-                                        "uuid", UUID.randomUUID().toString());
+                            if (CardWriterItemStacks[x].stackTagCompound.getString("uuid").isEmpty()) {
+                                CardWriterItemStacks[x].stackTagCompound
+                                        .setString("uuid", UUID.randomUUID().toString());
                             }
 
                             if (locked) {
@@ -444,16 +434,16 @@ public class TileEntityCardWriter extends TileEntityMachineBase implements Envir
                             CardWriterItemStacks[x].stackTagCompound.setInteger("color", color);
 
                             decrStackSize(0, 1);
-                            return new Object[] {true, CardWriterItemStacks[x].stackTagCompound.getString("uuid")};
+                            return new Object[] { true, CardWriterItemStacks[x].stackTagCompound.getString("uuid") };
                         }
                     }
-                    return new Object[] {false, "No Empty Slots"};
+                    return new Object[] { false, "No Empty Slots" };
                 }
-                return new Object[] {false, "No card in slot"};
+                return new Object[] { false, "No card in slot" };
             }
-            return new Object[] {false, "Data is Null"};
+            return new Object[] { false, "Data is Null" };
         } else {
-            return new Object[] {false, "Not enough power in OC Network."};
+            return new Object[] { false, "Not enough power in OC Network." };
         }
     }
 

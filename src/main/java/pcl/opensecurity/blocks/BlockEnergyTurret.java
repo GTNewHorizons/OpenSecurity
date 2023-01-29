@@ -1,6 +1,7 @@
 package pcl.opensecurity.blocks;
 
 import java.util.Random;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -11,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
 
@@ -64,24 +66,15 @@ public class BlockEnergyTurret extends BlockContainer {
                     entityitem.motionZ = (double) ((float) random.nextGaussian() * velocity);
 
                     if (itemstack.hasTagCompound())
-                        entityitem.getEntityItem().setTagCompound((NBTTagCompound)
-                                itemstack.getTagCompound().copy());
+                        entityitem.getEntityItem().setTagCompound((NBTTagCompound) itemstack.getTagCompound().copy());
                 }
             }
         }
     }
 
     @Override
-    public boolean onBlockActivated(
-            World world,
-            int x,
-            int y,
-            int z,
-            EntityPlayer player,
-            int metadata,
-            float clickX,
-            float clickY,
-            float clickZ) {
+    public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float clickX,
+            float clickY, float clickZ) {
         TileEntity tileEntity = world.getTileEntity(x, y, z);
         if (tileEntity == null || player.isSneaking()) {
             return false;

@@ -9,7 +9,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.client.IItemRenderer;
+
 import org.lwjgl.opengl.GL11;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 import pcl.opensecurity.tileentity.TileEntityKeypadLock.ButtonState;
@@ -19,8 +21,8 @@ public class RenderKeypad extends TileEntitySpecialRenderer implements IItemRend
     static float texPixel = 1.0f / 16f;
 
     static ButtonState[] itemButtonStates;
-    static String[] default_labels = new String[] {"1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#"};
-    static byte[] default_colors = new byte[] {7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7};
+    static String[] default_labels = new String[] { "1", "2", "3", "4", "5", "6", "7", "8", "9", "*", "0", "#" };
+    static byte[] default_colors = new byte[] { 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7, 7 };
     static ButtonPosition[] buttons = null;
     static ButtonPosition display = null;
 
@@ -117,6 +119,7 @@ public class RenderKeypad extends TileEntitySpecialRenderer implements IItemRend
     }
 
     static class ButtonPosition {
+
         public float x, y;
         public float w, h;
 
@@ -151,7 +154,9 @@ public class RenderKeypad extends TileEntitySpecialRenderer implements IItemRend
 
         tessellator.setColorOpaque_F(brightness, brightness, brightness);
         OpenGlHelper.setLightmapTextureCoords(
-                OpenGlHelper.lightmapTexUnit, (float) (light & 0xffff), (float) (light >> 16));
+                OpenGlHelper.lightmapTexUnit,
+                (float) (light & 0xffff),
+                (float) (light >> 16));
 
         GL11.glPushMatrix();
         GL11.glTranslatef((float) x, (float) y, (float) z);
@@ -302,7 +307,7 @@ public class RenderKeypad extends TileEntitySpecialRenderer implements IItemRend
 
         GL11.glEnd();
 
-        //		this.bindTexture(new ResourceLocation("opensecurity", "textures/blocks/machine_side.png"));
+        // this.bindTexture(new ResourceLocation("opensecurity", "textures/blocks/machine_side.png"));
 
         GL11.glBegin(GL11.GL_QUADS);
 
@@ -340,7 +345,7 @@ public class RenderKeypad extends TileEntitySpecialRenderer implements IItemRend
 
             GL11.glEnd();
 
-            //			this.bindTexture(new ResourceLocation("opensecurity", "textures/blocks/machine_side.png"));
+            // this.bindTexture(new ResourceLocation("opensecurity", "textures/blocks/machine_side.png"));
 
             GL11.glBegin(GL11.GL_QUADS);
 
@@ -357,7 +362,7 @@ public class RenderKeypad extends TileEntitySpecialRenderer implements IItemRend
 
         GL11.glEnd();
 
-        //		this.bindTexture(new ResourceLocation("opensecurity", "textures/blocks/machine_side.png"));
+        // this.bindTexture(new ResourceLocation("opensecurity", "textures/blocks/machine_side.png"));
 
         drawKeypadBlock(null, 10000);
 

@@ -4,6 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+
 import pcl.opensecurity.items.ItemMovementUpgrade;
 
 public class MovementUpgradeSlot extends Slot {

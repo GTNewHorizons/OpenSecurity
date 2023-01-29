@@ -3,6 +3,7 @@ package pcl.opensecurity.drivers;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.driver.item.Slot;
 import li.cil.oc.api.machine.Arguments;
@@ -15,6 +16,7 @@ import li.cil.oc.api.network.Visibility;
 import li.cil.oc.api.prefab.DriverItem;
 import li.cil.oc.common.inventory.Inventory;
 import li.cil.oc.common.item.TabletWrapper;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -22,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.AxisAlignedBB;
+
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.items.ItemRFIDCard;
@@ -45,12 +48,11 @@ public class RFIDReaderCardDriver extends DriverItem {
     }
 
     public class Environment extends li.cil.oc.api.prefab.ManagedEnvironment {
+
         public String data = null;
         protected li.cil.oc.api.network.EnvironmentHost container = null;
-        protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-                .withComponent("os_rfidreader")
-                .withConnector(32)
-                .create();
+        protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent("os_rfidreader")
+                .withConnector(32).create();
 
         @Override
         public Node node() {
@@ -64,12 +66,11 @@ public class RFIDReaderCardDriver extends DriverItem {
 
         @Callback
         public Object[] greet(Context context, Arguments args) {
-            return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+            return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
         }
 
         @Callback(
-                doc =
-                        "function(optional:int:range):string; pushes a signal \"rfidData\" for each found rfid on all players in range, optional set range.")
+                doc = "function(optional:int:range):string; pushes a signal \"rfidData\" for each found rfid on all players in range, optional set range.")
         public Object[] scan(Context context, Arguments args) throws Exception {
             double range = args.optDouble(0, OpenSecurity.rfidRange);
             if (range > OpenSecurity.rfidRange) {
@@ -78,7 +79,7 @@ public class RFIDReaderCardDriver extends DriverItem {
             range = range / 2;
 
             if (node.changeBuffer(-5 * range) == 0) {
-                return new Object[] {scan(range)};
+                return new Object[] { scan(range) };
             } else {
                 throw new Exception("Not enough power in OC Network.");
             }
@@ -88,8 +89,8 @@ public class RFIDReaderCardDriver extends DriverItem {
         private HashMap<String, Object> info(Entity entity, String data, String uuid, boolean locked) {
             HashMap<String, Object> value = new HashMap<String, Object>();
 
-            double rangeToEntity =
-                    entity.getDistance(container.xPosition(), container.yPosition(), container.zPosition());
+            double rangeToEntity = entity
+                    .getDistance(container.xPosition(), container.yPosition(), container.zPosition());
             String name;
             if (entity instanceof EntityPlayerMP) name = ((EntityPlayer) entity).getDisplayName();
             else name = entity.getCommandSenderName();
@@ -103,22 +104,20 @@ public class RFIDReaderCardDriver extends DriverItem {
             return value;
         }
 
-        @SuppressWarnings({"rawtypes"})
+        @SuppressWarnings({ "rawtypes" })
         public Map<Integer, HashMap<String, Object>> scan(double range) {
             Entity entity;
             Map<Integer, HashMap<String, Object>> output = new HashMap<Integer, HashMap<String, Object>>();
             int index = 1;
-            List e = container
-                    .world()
-                    .getEntitiesWithinAABB(
-                            Entity.class,
-                            AxisAlignedBB.getBoundingBox(
-                                    container.xPosition() - range,
-                                    container.yPosition() - range,
-                                    container.zPosition() - range,
-                                    container.xPosition() + range,
-                                    container.yPosition() + range,
-                                    container.zPosition() + range));
+            List e = container.world().getEntitiesWithinAABB(
+                    Entity.class,
+                    AxisAlignedBB.getBoundingBox(
+                            container.xPosition() - range,
+                            container.yPosition() - range,
+                            container.zPosition() - range,
+                            container.xPosition() + range,
+                            container.yPosition() + range,
+                            container.zPosition() + range));
             if (!e.isEmpty()) {
                 for (int i = 0; i <= e.size() - 1; i++) {
                     entity = (Entity) e.get(i);
@@ -128,8 +127,7 @@ public class RFIDReaderCardDriver extends DriverItem {
                         int size = playerInventory.length;
                         for (int k = 0; k < size; k++) {
                             ItemStack st = em.inventory.getStackInSlot(k);
-                            if (st != null
-                                    && st.getItem() instanceof ItemRFIDCard
+                            if (st != null && st.getItem() instanceof ItemRFIDCard
                                     && st.stackTagCompound != null
                                     && st.stackTagCompound.hasKey("data")) {
                                 String localUUID;
@@ -153,8 +151,7 @@ public class RFIDReaderCardDriver extends DriverItem {
                         int size = em.inventorySize();
                         for (int k = 0; k < size; k++) {
                             ItemStack st = droneInventory.getStackInSlot(k);
-                            if (st != null
-                                    && st.getItem() instanceof ItemRFIDCard
+                            if (st != null && st.getItem() instanceof ItemRFIDCard
                                     && st.stackTagCompound != null
                                     && st.stackTagCompound.hasKey("data")) {
                                 String localUUID;

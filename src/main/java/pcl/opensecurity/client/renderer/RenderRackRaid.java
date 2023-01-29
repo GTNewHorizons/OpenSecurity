@@ -1,3 +1,4 @@
 package pcl.opensecurity.client.renderer;
 
-public class RenderRackRaid {}
+public class RenderRackRaid {
+}

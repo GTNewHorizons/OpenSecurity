@@ -9,9 +9,11 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
+
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.items.ItemMagCard;
 
@@ -24,10 +26,8 @@ public class TileEntityMagReader extends TileEntityMachineBase implements Enviro
     public String data;
     public String eventName = "magData";
 
-    protected ComponentConnector node = Network.newNode(this, Visibility.Network)
-            .withComponent(getComponentName())
-            .withConnector(32)
-            .create();
+    protected ComponentConnector node = Network.newNode(this, Visibility.Network).withComponent(getComponentName())
+            .withConnector(32).create();
 
     @Override
     public Node node() {
@@ -102,8 +102,7 @@ public class TileEntityMagReader extends TileEntityMachineBase implements Enviro
                         worldObj.rand.nextFloat() * 0.1F + 0.9F);
             }
         }
-        if (itemStack != null
-                && itemStack.getItem() instanceof ItemMagCard
+        if (itemStack != null && itemStack.getItem() instanceof ItemMagCard
                 && itemStack.stackTagCompound != null
                 && itemStack.stackTagCompound.hasKey("data")) {
             data = itemStack.stackTagCompound.getString("data");
@@ -132,7 +131,7 @@ public class TileEntityMagReader extends TileEntityMachineBase implements Enviro
 
     @Callback
     public Object[] greet(Context context, Arguments args) {
-        return new Object[] {"Lasciate ogne speranza, voi ch'intrate"};
+        return new Object[] { "Lasciate ogne speranza, voi ch'intrate" };
     }
 
     @Callback(
@@ -140,7 +139,7 @@ public class TileEntityMagReader extends TileEntityMachineBase implements Enviro
             direct = true)
     public Object[] setEventName(Context context, Arguments args) throws Exception {
         eventName = args.checkString(0);
-        return new Object[] {true};
+        return new Object[] { true };
     }
 
     @Override
