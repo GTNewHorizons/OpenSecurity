@@ -12,11 +12,11 @@ import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.tileentity.TileEntitySecureDoor;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockSecurityDoorPrivate extends BlockSecurityDoor {
 

@@ -7,9 +7,9 @@ import net.minecraft.util.IIcon;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 
 public class BlockKeypadLock extends BlockOSBase {
 

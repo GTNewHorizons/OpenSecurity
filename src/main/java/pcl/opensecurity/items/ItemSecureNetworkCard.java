@@ -1,18 +1,17 @@
 package pcl.opensecurity.items;
 
-import li.cil.oc.api.driver.EnvironmentAware;
-import li.cil.oc.api.driver.item.HostAware;
-import li.cil.oc.api.driver.item.Slot;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.ManagedEnvironment;
-
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import li.cil.oc.api.driver.EnvironmentProvider;
+import li.cil.oc.api.driver.item.HostAware;
+import li.cil.oc.api.driver.item.Slot;
+import li.cil.oc.api.network.EnvironmentHost;
+import li.cil.oc.api.network.ManagedEnvironment;
 import pcl.opensecurity.drivers.SecureNetworkCardDriver;
 
-public class ItemSecureNetworkCard extends Item implements li.cil.oc.api.driver.Item, HostAware, EnvironmentAware {
+public class ItemSecureNetworkCard extends Item implements li.cil.oc.api.driver.Item, HostAware, EnvironmentProvider {
 
     public ItemSecureNetworkCard() {
         super();
@@ -26,7 +25,7 @@ public class ItemSecureNetworkCard extends Item implements li.cil.oc.api.driver.
     }
 
     @Override
-    public ManagedEnvironment createEnvironment(ItemStack arg0, li.cil.oc.api.network.EnvironmentHost arg1) {
+    public ManagedEnvironment createEnvironment(ItemStack arg0, EnvironmentHost arg1) {
         return new SecureNetworkCardDriver(arg1);
     }
 
@@ -37,7 +36,6 @@ public class ItemSecureNetworkCard extends Item implements li.cil.oc.api.driver.
 
     @Override
     public int tier(ItemStack stack) {
-        // TODO Auto-generated method stub
         return 0;
     }
 
@@ -54,14 +52,12 @@ public class ItemSecureNetworkCard extends Item implements li.cil.oc.api.driver.
     }
 
     @Override
-    public Class<? extends Environment> providedEnvironment(ItemStack stack) {
-        // TODO Auto-generated method stub
+    public Class<?> getEnvironment(ItemStack stack) {
         return SecureNetworkCardDriver.class;
     }
 
     @Override
     public boolean worksWith(ItemStack arg0, Class<? extends li.cil.oc.api.network.EnvironmentHost> arg1) {
-        // TODO Auto-generated method stub
         boolean works = worksWith(arg0);
         return works;
     }

@@ -1,15 +1,5 @@
 package pcl.opensecurity.tileentity;
 
-import li.cil.oc.api.Network;
-import li.cil.oc.api.machine.Arguments;
-import li.cil.oc.api.machine.Callback;
-import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.ComponentConnector;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.Message;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.Visibility;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.item.ItemStack;
@@ -22,6 +12,15 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import li.cil.oc.api.Network;
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.ComponentConnector;
+import li.cil.oc.api.network.Environment;
+import li.cil.oc.api.network.Message;
+import li.cil.oc.api.network.Node;
+import li.cil.oc.api.network.Visibility;
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.blocks.BlockSecurityDoor;
 import pcl.opensecurity.util.BlockLocation;

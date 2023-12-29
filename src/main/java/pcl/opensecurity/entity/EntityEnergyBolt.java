@@ -8,9 +8,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.blocks.BlockEnergyTurret;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import pcl.opensecurity.blocks.BlockEnergyTurret;
 
 public class EntityEnergyBolt extends Entity {
 
@@ -89,9 +89,9 @@ public class EntityEnergyBolt extends Entity {
                         (int) Math.floor(this.posZ)) instanceof BlockEnergyTurret))) {
             this.isDead = true;
         }
-        List list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
+        List<Entity> list = this.worldObj.getEntitiesWithinAABBExcludingEntity(this, this.boundingBox);
         if (!list.isEmpty()) {
-            ((Entity) list.get(0)).attackEntityFrom(energy, this.damage);
+            list.get(0).attackEntityFrom(energy, this.damage);
             this.isDead = true;
         }
         this.posX += this.motionX;

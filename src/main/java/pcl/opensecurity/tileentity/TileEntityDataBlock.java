@@ -6,6 +6,14 @@ package pcl.opensecurity.tileentity;
 import java.util.zip.DeflaterOutputStream;
 import java.util.zip.InflaterOutputStream;
 
+import net.minecraft.nbt.NBTTagCompound;
+
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.io.output.ByteArrayOutputStream;
+import org.mindrot.jbcrypt.BCrypt;
+
+import com.google.common.hash.Hashing;
+
 import li.cil.oc.Settings;
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
@@ -17,16 +25,7 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
-
-import net.minecraft.nbt.NBTTagCompound;
-
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.output.ByteArrayOutputStream;
-import org.mindrot.jbcrypt.BCrypt;
-
 import pcl.opensecurity.OpenSecurity;
-
-import com.google.common.hash.Hashing;
 
 /**
  * @author Caitlyn

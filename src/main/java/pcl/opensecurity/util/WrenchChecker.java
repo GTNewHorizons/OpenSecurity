@@ -14,7 +14,7 @@ import pcl.opensecurity.OpenSecurity;
  */
 public class WrenchChecker {
 
-    private static List<Class> wrenchClasses = new ArrayList<Class>();
+    private static List<Class<?>> wrenchClasses = new ArrayList<>();
 
     public static void init() {
         for (String className : new String[] {
@@ -46,7 +46,7 @@ public class WrenchChecker {
     }
 
     public static boolean isAWrench(Item item) {
-        for (Class c : wrenchClasses) {
+        for (Class<?> c : wrenchClasses) {
             if (c.isAssignableFrom(item.getClass())) {
                 return true;
             }

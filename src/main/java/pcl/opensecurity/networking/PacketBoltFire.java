@@ -2,11 +2,11 @@ package pcl.opensecurity.networking;
 
 import net.minecraft.client.Minecraft;
 
-import pcl.opensecurity.entity.EntityEnergyBolt;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
 import io.netty.buffer.ByteBuf;
+import pcl.opensecurity.entity.EntityEnergyBolt;
 
 public class PacketBoltFire implements IMessage, IMessageHandler<PacketBoltFire, IMessage> {
 

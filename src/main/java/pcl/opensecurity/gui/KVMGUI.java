@@ -25,7 +25,6 @@ public class KVMGUI extends GuiContainer {
     private GuiButton topBttn;
     private GuiButton bottomBttn;
 
-    @SuppressWarnings("unchecked")
     @Override
     public void initGui() {
         super.initGui();

@@ -13,10 +13,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.OpenSecurity;
-import pcl.opensecurity.tileentity.TileEntityCardWriter;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import pcl.opensecurity.OpenSecurity;
+import pcl.opensecurity.tileentity.TileEntityCardWriter;
 
 public class BlockCardWriter extends BlockOSBase {
 

@@ -14,10 +14,10 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.items.ItemMagCard;
-import pcl.opensecurity.tileentity.TileEntityMagReader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import pcl.opensecurity.items.ItemMagCard;
+import pcl.opensecurity.tileentity.TileEntityMagReader;
 
 /**
  * @author Caitlyn

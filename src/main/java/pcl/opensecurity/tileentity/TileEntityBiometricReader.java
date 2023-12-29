@@ -1,5 +1,10 @@
 package pcl.opensecurity.tileentity;
 
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagCompound;
+
+import org.apache.commons.codec.binary.Base64;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.machine.Arguments;
 import li.cil.oc.api.machine.Callback;
@@ -9,12 +14,6 @@ import li.cil.oc.api.network.Environment;
 import li.cil.oc.api.network.Message;
 import li.cil.oc.api.network.Node;
 import li.cil.oc.api.network.Visibility;
-
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.nbt.NBTTagCompound;
-
-import org.apache.commons.codec.binary.Base64;
-
 import pcl.opensecurity.OpenSecurity;
 
 public class TileEntityBiometricReader extends TileEntityMachineBase implements Environment {

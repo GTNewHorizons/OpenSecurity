@@ -1,7 +1,5 @@
 package pcl.opensecurity.blocks;
 
-import li.cil.oc.common.item.Wrench;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGlass;
 import net.minecraft.block.BlockStainedGlass;
@@ -18,11 +16,12 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.ForgeDirection;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
+import li.cil.oc.common.item.Wrench;
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.tileentity.TileEntityDoorController;
 import pcl.opensecurity.util.BlockLocation;
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 
 public class BlockDoorController extends BlockOSBase {
 

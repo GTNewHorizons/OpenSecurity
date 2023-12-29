@@ -1,8 +1,15 @@
 package pcl.opensecurity.client.sounds;
 
 import java.awt.image.BufferedImage;
-import java.io.*;
-import java.util.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.IResourcePack;
@@ -14,6 +21,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+
 import cpw.mods.fml.common.ObfuscationReflectionHelper;
 
 public class AlarmResource implements IResourcePack {

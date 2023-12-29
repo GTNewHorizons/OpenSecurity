@@ -9,9 +9,9 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.tileentity.TileEntityRFIDReader;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import pcl.opensecurity.tileentity.TileEntityRFIDReader;
 
 /**
  * @author Caitlyn

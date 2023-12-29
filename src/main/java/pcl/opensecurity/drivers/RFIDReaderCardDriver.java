@@ -4,6 +4,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.AxisAlignedBB;
+
 import li.cil.oc.api.Network;
 import li.cil.oc.api.driver.item.Slot;
 import li.cil.oc.api.machine.Arguments;
@@ -16,15 +24,6 @@ import li.cil.oc.api.network.Visibility;
 import li.cil.oc.api.prefab.DriverItem;
 import li.cil.oc.common.inventory.Inventory;
 import li.cil.oc.common.item.TabletWrapper;
-
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.AxisAlignedBB;
-
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.items.ItemRFIDCard;

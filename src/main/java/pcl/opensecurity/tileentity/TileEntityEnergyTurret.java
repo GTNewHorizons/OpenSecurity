@@ -1,16 +1,5 @@
 package pcl.opensecurity.tileentity;
 
-import li.cil.oc.api.Network;
-import li.cil.oc.api.machine.Arguments;
-import li.cil.oc.api.machine.Callback;
-import li.cil.oc.api.machine.Context;
-import li.cil.oc.api.network.ComponentConnector;
-import li.cil.oc.api.network.Connector;
-import li.cil.oc.api.network.Environment;
-import li.cil.oc.api.network.Message;
-import li.cil.oc.api.network.Node;
-import li.cil.oc.api.network.Visibility;
-
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
@@ -22,6 +11,16 @@ import net.minecraft.network.play.server.S35PacketUpdateTileEntity;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.ResourceLocation;
 
+import li.cil.oc.api.Network;
+import li.cil.oc.api.machine.Arguments;
+import li.cil.oc.api.machine.Callback;
+import li.cil.oc.api.machine.Context;
+import li.cil.oc.api.network.ComponentConnector;
+import li.cil.oc.api.network.Connector;
+import li.cil.oc.api.network.Environment;
+import li.cil.oc.api.network.Message;
+import li.cil.oc.api.network.Node;
+import li.cil.oc.api.network.Visibility;
 import pcl.opensecurity.ContentRegistry;
 import pcl.opensecurity.OpenSecurity;
 import pcl.opensecurity.client.sounds.ISoundTile;

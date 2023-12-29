@@ -1,8 +1,8 @@
 package pcl.opensecurity.containers;
 
-import li.cil.oc.common.container.Raid;
-
 import net.minecraft.entity.player.InventoryPlayer;
+
+import li.cil.oc.common.container.Raid;
 
 public class RackRaidContainer extends Raid {
 

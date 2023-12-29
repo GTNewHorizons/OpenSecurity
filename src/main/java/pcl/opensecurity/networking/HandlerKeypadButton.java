@@ -3,11 +3,11 @@ package pcl.opensecurity.networking;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.OpenSecurity;
-import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.IMessageHandler;
 import cpw.mods.fml.common.network.simpleimpl.MessageContext;
+import pcl.opensecurity.OpenSecurity;
+import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 
 public class HandlerKeypadButton implements IMessageHandler<PacketKeypadButton, IMessage> {
 

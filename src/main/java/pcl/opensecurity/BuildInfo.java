@@ -1,5 +1,7 @@
 package pcl.opensecurity;
 
+import net.minecraft.launchwrapper.Launch;
+
 /**
  * This file is automatically updated by Jenkins as part of the CI build script in Ant. Don't put any pre-set values
  * here.
@@ -11,20 +13,22 @@ public class BuildInfo {
     public static final String modName = "OpenSecurity";
     public static final String modID = "opensecurity";
 
-    public static final String versionNumber = "GRADLETOKEN_VERSION";
-    public static final String buildNumber = "@BUILD@";
+    public static final String versionNumber = Tags.VERSION;
+    @Deprecated
+    public static final String buildNumber = "0";
 
+    @Deprecated
     public static int getBuildNumber() {
-        if (buildNumber.equals("@" + "BUILD" + "@")) return 0;
-        return new Double(buildNumber).intValue();
+        return 0;
     }
 
+    @Deprecated
     public static int getVersionNumber() {
-        if (versionNumber.equals("@" + "VERSION" + "@")) return 0;
-        return new Double(versionNumber).intValue();
+        return 1;
     }
 
+    @Deprecated
     public static boolean isDevelopmentEnvironment() {
-        return getBuildNumber() == 0;
+        return (boolean) Launch.blackboard.get("fml.deobfuscatedEnvironment");
     }
 }

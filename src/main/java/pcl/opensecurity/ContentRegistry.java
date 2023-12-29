@@ -5,8 +5,6 @@ package pcl.opensecurity;
 
 import java.util.concurrent.Callable;
 
-import li.cil.oc.api.fs.FileSystem;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -17,15 +15,51 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import pcl.opensecurity.blocks.*;
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import li.cil.oc.api.fs.FileSystem;
+import pcl.opensecurity.blocks.BlockAlarm;
+import pcl.opensecurity.blocks.BlockBiometricReader;
+import pcl.opensecurity.blocks.BlockCardWriter;
+import pcl.opensecurity.blocks.BlockData;
+import pcl.opensecurity.blocks.BlockDoorController;
+import pcl.opensecurity.blocks.BlockEnergyTurret;
+import pcl.opensecurity.blocks.BlockEntityDetector;
+import pcl.opensecurity.blocks.BlockKVM;
+import pcl.opensecurity.blocks.BlockKeypadLock;
+import pcl.opensecurity.blocks.BlockMagReader;
+import pcl.opensecurity.blocks.BlockRFIDReader;
+import pcl.opensecurity.blocks.BlockSecurityDoor;
+import pcl.opensecurity.blocks.BlockSecurityDoorPrivate;
+import pcl.opensecurity.blocks.BlockSwitchableHub;
 import pcl.opensecurity.client.CreativeTab;
 import pcl.opensecurity.drivers.RFIDReaderCardDriver;
 import pcl.opensecurity.entity.EntityEnergyBolt;
-import pcl.opensecurity.items.*;
-import pcl.opensecurity.tileentity.*;
+import pcl.opensecurity.items.ItemCooldownUpgrade;
+import pcl.opensecurity.items.ItemDamageUpgrade;
+import pcl.opensecurity.items.ItemEnergyUpgrade;
+import pcl.opensecurity.items.ItemMagCard;
+import pcl.opensecurity.items.ItemMovementUpgrade;
+import pcl.opensecurity.items.ItemRFIDCard;
+import pcl.opensecurity.items.ItemRFIDReaderCard;
+import pcl.opensecurity.items.ItemSecureNetworkCard;
+import pcl.opensecurity.items.ItemSecurityDoor;
+import pcl.opensecurity.items.ItemSecurityDoorPrivate;
+import pcl.opensecurity.tileentity.TileEntityAlarm;
+import pcl.opensecurity.tileentity.TileEntityBiometricReader;
+import pcl.opensecurity.tileentity.TileEntityCardWriter;
+import pcl.opensecurity.tileentity.TileEntityDataBlock;
+import pcl.opensecurity.tileentity.TileEntityDisplayPanel;
+import pcl.opensecurity.tileentity.TileEntityDoorController;
+import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
+import pcl.opensecurity.tileentity.TileEntityEntityDetector;
+import pcl.opensecurity.tileentity.TileEntityKVM;
+import pcl.opensecurity.tileentity.TileEntityKeypadLock;
+import pcl.opensecurity.tileentity.TileEntityMagReader;
+import pcl.opensecurity.tileentity.TileEntityRFIDReader;
+import pcl.opensecurity.tileentity.TileEntitySecureDoor;
+import pcl.opensecurity.tileentity.TileEntitySwitchableHub;
 import pcl.opensecurity.util.OSBreakEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author Caitlyn
@@ -69,10 +103,10 @@ public class ContentRegistry {
         registerEntities();
         registerItems();
         registerEvents();
-        registerRecipes();
     }
 
     public static void init() {
+        registerRecipes();
         li.cil.oc.api.Driver.add(new RFIDReaderCardDriver());
         li.cil.oc.api.Driver.add((li.cil.oc.api.driver.Item) secureNetworkCardItem);
     }

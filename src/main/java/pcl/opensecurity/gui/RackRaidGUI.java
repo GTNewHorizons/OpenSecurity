@@ -1,8 +1,8 @@
 package pcl.opensecurity.gui;
 
-import li.cil.oc.client.gui.Raid;
-
 import net.minecraft.entity.player.InventoryPlayer;
+
+import li.cil.oc.client.gui.Raid;
 
 public class RackRaidGUI extends Raid {
 
