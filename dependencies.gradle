@@ -1,4 +1,4 @@
 dependencies {
-	compile 'com.github.GTNewHorizons:OpenComputers:1.7.5.27-GTNH:dev'
-	compile 'org.mindrot:jbcrypt:0.4'
+	implementation 'com.github.GTNewHorizons:OpenComputers:1.9.21-GTNH:dev'
+	implementation 'org.mindrot:jbcrypt:0.4'
 }
