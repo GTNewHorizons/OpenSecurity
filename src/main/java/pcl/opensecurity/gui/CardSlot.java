@@ -1,11 +1,10 @@
 package pcl.opensecurity.gui;
 
-import li.cil.oc.common.item.EEPROM;
-
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 
+import li.cil.oc.common.item.EEPROM;
 import pcl.opensecurity.items.ItemMagCard;
 import pcl.opensecurity.items.ItemRFIDCard;
 

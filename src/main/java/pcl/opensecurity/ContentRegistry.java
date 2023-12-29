@@ -5,8 +5,6 @@ package pcl.opensecurity;
 
 import java.util.concurrent.Callable;
 
-import li.cil.oc.api.fs.FileSystem;
-
 import net.minecraft.block.Block;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
@@ -17,6 +15,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import cpw.mods.fml.common.registry.EntityRegistry;
+import cpw.mods.fml.common.registry.GameRegistry;
+import li.cil.oc.api.fs.FileSystem;
 import pcl.opensecurity.blocks.*;
 import pcl.opensecurity.client.CreativeTab;
 import pcl.opensecurity.drivers.RFIDReaderCardDriver;
@@ -24,8 +25,6 @@ import pcl.opensecurity.entity.EntityEnergyBolt;
 import pcl.opensecurity.items.*;
 import pcl.opensecurity.tileentity.*;
 import pcl.opensecurity.util.OSBreakEvent;
-import cpw.mods.fml.common.registry.EntityRegistry;
-import cpw.mods.fml.common.registry.GameRegistry;
 
 /**
  * @author Caitlyn

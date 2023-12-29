@@ -10,12 +10,6 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import pcl.opensecurity.gui.OSGUIHandler;
-import pcl.opensecurity.networking.HandlerKeypadButton;
-import pcl.opensecurity.networking.OSPacketHandler;
-import pcl.opensecurity.networking.OSPacketHandler.PacketHandler;
-import pcl.opensecurity.networking.PacketBoltFire;
-import pcl.opensecurity.networking.PacketKeypadButton;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -27,6 +21,12 @@ import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import cpw.mods.fml.relauncher.Side;
+import pcl.opensecurity.gui.OSGUIHandler;
+import pcl.opensecurity.networking.HandlerKeypadButton;
+import pcl.opensecurity.networking.OSPacketHandler;
+import pcl.opensecurity.networking.OSPacketHandler.PacketHandler;
+import pcl.opensecurity.networking.PacketBoltFire;
+import pcl.opensecurity.networking.PacketKeypadButton;
 
 @Mod(
         modid = OpenSecurity.MODID,

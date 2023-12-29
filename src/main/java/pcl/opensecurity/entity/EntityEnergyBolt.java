@@ -8,9 +8,9 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 
-import pcl.opensecurity.blocks.BlockEnergyTurret;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import pcl.opensecurity.blocks.BlockEnergyTurret;
 
 public class EntityEnergyBolt extends Entity {
 

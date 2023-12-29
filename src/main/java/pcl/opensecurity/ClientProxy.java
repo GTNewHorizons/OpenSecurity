@@ -11,6 +11,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraftforge.client.MinecraftForgeClient;
 
+import cpw.mods.fml.client.registry.ClientRegistry;
+import cpw.mods.fml.client.registry.RenderingRegistry;
 import pcl.opensecurity.client.renderer.RenderDisplayPanel;
 import pcl.opensecurity.client.renderer.RenderEnergyTurret;
 import pcl.opensecurity.client.renderer.RenderEntityEnergyBolt;
@@ -25,8 +27,6 @@ import pcl.opensecurity.tileentity.TileEntityEnergyTurret;
 import pcl.opensecurity.tileentity.TileEntityKeypadLock;
 import pcl.opensecurity.tileentity.TileEntityMagReader;
 import pcl.opensecurity.tileentity.TileEntityRFIDReader;
-import cpw.mods.fml.client.registry.ClientRegistry;
-import cpw.mods.fml.client.registry.RenderingRegistry;
 
 public class ClientProxy extends CommonProxy {
 
