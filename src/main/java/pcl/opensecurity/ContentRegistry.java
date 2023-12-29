@@ -103,10 +103,10 @@ public class ContentRegistry {
         registerEntities();
         registerItems();
         registerEvents();
-        registerRecipes();
     }
 
     public static void init() {
+        registerRecipes();
         li.cil.oc.api.Driver.add(new RFIDReaderCardDriver());
         li.cil.oc.api.Driver.add((li.cil.oc.api.driver.Item) secureNetworkCardItem);
     }
