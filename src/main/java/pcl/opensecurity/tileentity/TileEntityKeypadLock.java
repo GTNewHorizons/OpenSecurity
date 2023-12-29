@@ -157,7 +157,7 @@ public class TileEntityKeypadLock extends TileEntityMachineBase implements Envir
             Map<?, ?> labels = args.checkTable(0);
             Map<?, ?> colors = args.optTable(1, null);
             for (int i = 0; i < 12; ++i) {
-                Integer id = new Integer(i + 1);
+                Integer id = i + 1;
                 Object val = labels.get(id);
                 if (val != null && val instanceof String) {
                     buttonLabels[i] = trimString((String) val, MAX_LABEL_LENGTH);
