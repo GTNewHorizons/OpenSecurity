@@ -1,4 +1,4 @@
 dependencies {
-	implementation 'com.github.GTNewHorizons:OpenComputers:1.10.6-GTNH:dev'
+	implementation 'com.github.GTNewHorizons:OpenComputers:1.11.1-GTNH:dev'
 	implementation 'org.mindrot:jbcrypt:0.4'
 }
