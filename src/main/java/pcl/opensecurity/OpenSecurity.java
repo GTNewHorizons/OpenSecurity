@@ -1,7 +1,6 @@
 package pcl.opensecurity;
 
 import java.io.File;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,11 +9,9 @@ import net.minecraftforge.common.config.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
-import cpw.mods.fml.common.ModContainer;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -55,13 +52,12 @@ public class OpenSecurity {
 
     public static final Logger logger = LogManager.getFormatterLogger(MODID);
 
-    public static List<String> alarmList = new ArrayList<String>();
+    public static List<String> alarmList = new ArrayList<>();
 
     public static SimpleNetworkWrapper network;
 
     @EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        long time = System.nanoTime();
         cfg = new Config(new Configuration(event.getSuggestedConfigurationFile()));
         alarmSounds = new File("./mods/OpenSecurity/sounds/alarms/");
         File[] listOfFiles = alarmSounds.listFiles();
@@ -79,37 +75,19 @@ public class OpenSecurity {
         ignoreUUIDs = cfg.ignoreUUIDs;
         registerBlockBreakEvent = cfg.registerBlockBreak;
 
-        if ((event.getSourceFile().getName().endsWith(".jar") || debug) && event.getSide().isClient()
-                && cfg.enableMUD) {
-            logger.info("Registering mod with OpenUpdater");
-            try {
-                Class.forName("pcl.mud.OpenUpdater")
-                        .getDeclaredMethod("registerMod", ModContainer.class, URL.class, URL.class).invoke(
-                                null,
-                                FMLCommonHandler.instance().findContainerFor(this),
-                                new URL("http://PC-Logix.com/OpenSecurity/get_latest_build.php?mcver=1.7.10"),
-                                new URL("http://PC-Logix.com/OpenSecurity/changelog.php?mcver=1.7.10"));
-            } catch (Throwable e) {
-                logger.info("OpenUpdater is not installed, not registering.");
-            }
-        }
         NetworkRegistry.INSTANCE.registerGuiHandler(this, new OSGUIHandler());
         network = NetworkRegistry.INSTANCE.newSimpleChannel("OpenSecurity");
         int packetID = 0;
         network.registerMessage(PacketHandler.class, OSPacketHandler.class, packetID++, Side.SERVER);
         network.registerMessage(PacketBoltFire.class, PacketBoltFire.class, packetID++, Side.CLIENT);
         network.registerMessage(HandlerKeypadButton.class, PacketKeypadButton.class, packetID++, Side.CLIENT);
-        logger.info("Registered " + packetID + " packets");
         ContentRegistry.preInit();
-        logger.info("Finished pre-init in %d ms", (System.nanoTime() - time) / 1000000);
     }
 
     @EventHandler
     public void init(FMLInitializationEvent event) {
-        long time = System.nanoTime();
         proxy.registerRenderers();
         proxy.registerSounds();
         ContentRegistry.init();
-        logger.info("Finished init in %d ms", (System.nanoTime() - time) / 1000000);
     }
 }
