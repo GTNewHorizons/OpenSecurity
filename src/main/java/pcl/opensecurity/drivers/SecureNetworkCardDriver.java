@@ -42,7 +42,6 @@ public class SecureNetworkCardDriver extends NetworkCard {
         Network.joinNewNetwork(node());
         while (meh.hasNext()) {
             Node thisNode = meh.next();
-            System.out.println(thisNode.address());
             this.node().connect(thisNode);
         }
 

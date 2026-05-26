@@ -62,10 +62,9 @@ public class OpenSecurity {
         alarmSounds = new File("./mods/OpenSecurity/sounds/alarms/");
         File[] listOfFiles = alarmSounds.listFiles();
         if (listOfFiles != null) {
-            for (int i = 0; i < listOfFiles.length; i++) {
-                if (listOfFiles[i].isFile()) {
-                    System.out.println("File " + listOfFiles[i].getName());
-                    alarmList.add(listOfFiles[i].getName());
+            for (File listOfFile : listOfFiles) {
+                if (listOfFile.isFile()) {
+                    alarmList.add(listOfFile.getName());
                 }
             }
         }

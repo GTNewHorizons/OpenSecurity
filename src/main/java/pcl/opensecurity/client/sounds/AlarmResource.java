@@ -93,7 +93,6 @@ public class AlarmResource implements IResourcePack {
                                                                                                // name sent to
                                                                                                // ItemCustomRecord)
         }
-        System.out.println(new Gson().toJson(root));
         return new ByteArrayInputStream(new Gson().toJson(root).getBytes());
     }
 
