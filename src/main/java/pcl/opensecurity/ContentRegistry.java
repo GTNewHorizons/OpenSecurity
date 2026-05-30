@@ -116,8 +116,9 @@ public class ContentRegistry {
     }
 
     private static void registerEvents() {
-        MinecraftForge.EVENT_BUS.register(new OSBreakEvent());
-        OpenSecurity.logger.info("Registered Events");
+        if (OpenSecurity.registerBlockBreakEvent) {
+            MinecraftForge.EVENT_BUS.register(new OSBreakEvent());
+        }
     }
 
     private static void registerItems() {
@@ -160,8 +161,6 @@ public class ContentRegistry {
         movementUpgradeItem = new ItemMovementUpgrade();
         GameRegistry.registerItem(movementUpgradeItem, "opensecurity.movementUpgrade");
         movementUpgradeItem.setCreativeTab(CreativeTab);
-
-        OpenSecurity.logger.info("Registered Items");
     }
 
     private static void registerBlocks() {
@@ -241,8 +240,6 @@ public class ContentRegistry {
         GameRegistry.registerBlock(biometricScanner, "biometricScanner");
         biometricScanner.setCreativeTab(CreativeTab);
         GameRegistry.registerTileEntity(TileEntityBiometricReader.class, "BiometricReader");
-
-        OpenSecurity.logger.info("Registered Blocks");
     }
 
     private static void registerTabs() {
@@ -601,6 +598,5 @@ public class ContentRegistry {
                         stone));
 
         GameRegistry.addShapelessRecipe(secureOS_disk, floppy, magCardItem);
-        OpenSecurity.logger.info("Registered Recipes");
     }
 }

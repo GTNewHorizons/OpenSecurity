@@ -12,6 +12,8 @@ import java.util.Map;
 import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
+import org.apache.logging.log4j.LogManager;
+
 import cpw.mods.fml.relauncher.IFMLCallHook;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
 
@@ -29,7 +31,6 @@ public class SoundUnpack implements IFMLLoadingPlugin, IFMLCallHook {
                         + File.separator);
         f.mkdirs();
         final String path = "assets/opensecurity/sounds/alarms/";
-        System.out.println("Extracting sounds from: " + path);
         final File jarFile = new File(getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath());
         if (jarFile.isFile()) { // Run with JAR file
             JarFile jar = null;
@@ -41,7 +42,6 @@ public class SoundUnpack implements IFMLLoadingPlugin, IFMLCallHook {
                     InputStream oggStream = SoundUnpack.class.getClassLoader().getResourceAsStream(name);
                     Path p = Paths.get(name);
                     String file = p.getFileName().toString();
-                    System.out.println("Extracting file: " + file);
                     try (FileOutputStream fos = new FileOutputStream(f + File.separator + file);) {
                         byte[] buf = new byte[2048];
                         int r;
@@ -53,7 +53,7 @@ public class SoundUnpack implements IFMLLoadingPlugin, IFMLCallHook {
             }
             jar.close();
         } else {
-            System.out.println("ERROR: Can't detect valid JAR");
+            LogManager.getFormatterLogger("opensecurity").error("Can't detect valid JAR");
         }
     }
 

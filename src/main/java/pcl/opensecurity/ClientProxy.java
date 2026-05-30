@@ -33,10 +33,10 @@ public class ClientProxy extends CommonProxy {
     @Override
     public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
         TileEntity te = world.getTileEntity(x, y, z);
-        if (te != null && te instanceof TileEntityMagReader) {
+        if (te instanceof TileEntityMagReader) {
             TileEntityMagReader icte = (TileEntityMagReader) te;
             return new MagCardContainer(player.inventory, icte);
-        } else if (te != null && te instanceof TileEntityRFIDReader) {
+        } else if (te instanceof TileEntityRFIDReader) {
             TileEntityCardWriter icte = (TileEntityCardWriter) te;
             return new CardWriterContainer(player.inventory, icte);
         } else {
@@ -61,8 +61,6 @@ public class ClientProxy extends CommonProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileEntityKeypadLock.class, keypadRenderer);
         MinecraftForgeClient
                 .registerItemRenderer(new ItemStack(ContentRegistry.keypadLockBlock).getItem(), keypadRenderer);
-
-        OpenSecurity.logger.info("Registered TESRs");
     }
 
     public void listFilesForFolder(final File folder) {
@@ -75,7 +73,6 @@ public class ClientProxy extends CommonProxy {
                 } else {
                     r.addSoundReferenceMapping(i, fileEntry.getName()); // add map soundlocation -> recordX
                     i++;
-                    System.out.println(OpenSecurity.alarmSounds + File.separator + fileEntry.getName());
                 }
             }
         }
